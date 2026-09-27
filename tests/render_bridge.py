@@ -6,7 +6,7 @@ separately in Node; the UI bridge exercises the existing polling fallback.
 from pathlib import Path
 import re,base64,json,urllib.request,urllib.error,asyncio
 ROOT=Path(__file__).resolve().parents[1]/'lab'/'public'
-def setup(page, base_url):
+def setup(page, base_url, initial_search=""):
     assets={}
     for f in (ROOT/'assets').iterdir():
         mime={'.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png'}.get(f.suffix,'application/octet-stream')
@@ -24,9 +24,12 @@ def setup(page, base_url):
     page.goto('about:blank')
     page.evaluate('''() => {
       window.fetch=async (url,opts={}) => {const r=await window.localApiBridge({path:url,method:opts.method||'GET',body:opts.body});return new Response(r.text,{status:r.status,headers:{'Content-Type':'application/json'}});};
-      window.history.replaceState=()=>{};
+      window.__testSearch='';
+      window.history.replaceState=(_state,_title,url)=>{window.__testSearch=url?.includes('?')?'?'+url.split('?')[1]:'';};
+      window.history.pushState=window.history.replaceState;
       window.EventSource=class {constructor(){setTimeout(()=>{if(this.onopen)this.onopen();},20)}close(){}};
     }''')
+    page.evaluate('(search)=>{window.__testSearch=search;}',initial_search)
     page.evaluate('(assets)=>{window.assetURL=name=>assets[name];}',assets)
     html=ROOT.joinpath('index.html').read_text()
     html=re.sub(r'<link[^>]+>','',html)
@@ -39,6 +42,8 @@ def setup(page, base_url):
     effects=ROOT.joinpath('effects.js').read_text().replace('export ','')
     page.add_script_tag(content='(()=>{'+effects+'\n window.FX={isReduced,isSoundOn,setMotion,setSound,tone,spark,glint,deal,shuffle,revealFrom,installTilt};})();')
     app=ROOT.joinpath('app.js').read_text().replace("import * as FX from './effects.js';","const FX=window.FX;")
+    state=ROOT.joinpath('ui-state.js').read_text().replace('export ','')
+    app=re.sub(r"import \{[^}]+\} from './ui-state.js';",state,app).replace('location.search','window.__testSearch')
     app=re.sub(r'src="/assets/\$\{([^}]+)\}\.webp"',lambda m:'src="${window.assetURL(('+m.group(1)+')+\'.webp\')}"',app)
     for name,url in assets.items():app=app.replace('/assets/'+name,url)
     page.add_script_tag(content=app)
@@ -50,6 +55,6 @@ def install_native_test_probes(page):
     Production app.js stays an ES module with no global state API.
     """
     app=ROOT.joinpath('app.js').read_text()
-    names=['busy','current','observationId','caps','mapping','demo','openRun','FX']
+    names=['busy','current','observationId','caps','mapping','demo','openRun','FX','stage','view','setView']
     probes='\n'+''.join("Object.defineProperty(window,"+json.dumps(name)+",{get:()=>"+name+",configurable:true});" for name in names)
     page.route('**/app.js',lambda route:route.fulfill(status=200,content_type='text/javascript',body=app+probes))

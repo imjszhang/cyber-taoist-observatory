@@ -5,7 +5,7 @@ const args=process.argv.slice(2),command=args.shift(),base=(process.env.TAO_LAB_
 const flag=name=>{const i=args.indexOf(name);if(i<0)return undefined;const v=args[i+1];if(v===undefined||v.startsWith('--'))throw Error(`${name} requires a value`);return v;};
 const has=name=>args.includes(name);
 const positional=n=>{const v=args[n];if(!v||v.startsWith('--'))throw Error('missing run / observation / target ID');return encodeURIComponent(v);};
-const help=`观天局 / Tao Lab v0.2.1
+const help=`观天局 / Tao Lab v0.3.0
 
 Start server: npm run lab:start
 All commands below print JSON. Errors print JSON to stderr with a nonzero exit code.

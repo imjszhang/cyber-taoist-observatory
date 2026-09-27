@@ -7,3 +7,5 @@ node_modules/
 __pycache__/
 *.pyc
 .qa-patch/
+
+.qa-ui-v0.3/

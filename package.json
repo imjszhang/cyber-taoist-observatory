@@ -1,6 +1,6 @@
 {
   "name": "cyber-taoist-observatory",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "description": "观天局 · 一张信息，六象定位，五种洞见。Local-first research card table.",
   "type": "module",
@@ -14,7 +14,7 @@
     "start": "node --env-file-if-exists=.env lab/server.mjs",
     "lab:start": "node --env-file-if-exists=.env lab/server.mjs",
     "lab:cli": "node lab/cli.mjs",
-    "lab:check": "node --check lab/server.mjs && node --check lab/engine.mjs && node --check lab/cli.mjs && node --check lab/public/app.js && node --check lab/public/effects.js && node --check lab/evidence.mjs && node --check lab/llm-config.mjs",
+    "lab:check": "node --check lab/server.mjs && node --check lab/engine.mjs && node --check lab/cli.mjs && node --check lab/public/app.js && node --check lab/public/effects.js && node --check lab/evidence.mjs && node --check lab/llm-config.mjs && node --check lab/public/ui-state.js",
     "test": "node --test tests/*.test.mjs"
   }
 }

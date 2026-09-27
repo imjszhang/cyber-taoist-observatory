@@ -1,4 +1,4 @@
-# Agent operator contract · 观天局 v0.2.1
+# Agent operator contract · 观天局 v0.3.0
 
 ## Roles
 
@@ -69,3 +69,8 @@ POST requests require `Content-Type: application/json`. Ratings: `insightful | k
 The branch endpoint copies only immutable observation records and captures a new prompt snapshot. It does not clone the old answers as new results. The requested protocol file must actually exist. Compare adapterVersion, validatorVersion, requestHash and effective parameters as well as protocolHash. The citation contract changed in 0.2.1 even though the Protocol text did not. Keep the model, input, exposure and cost conditions comparable when investigating a protocol change.
 
 GET and animation replay never modify the run. Do not manipulate local files to produce an apparently valid score. Data is local JSON, not a multiprocess database: one server per data directory.
+
+
+## v0.3 presentation
+
+UI routes `view`, `stage`, `obs`, `note`, and `lens` select presentation only. They do not request model work. The web interface separates Home, a four-stage Table, Reading, Journal, Library, History, and Settings. CLI commands and the API remain unchanged. Reading an old trace, selecting a card, changing stage or replaying animation must not advance an experiment.

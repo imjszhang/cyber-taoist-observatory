@@ -1,16 +1,14 @@
-# Artwork and motion
+# Artwork and motion · v0.3.0
 
-The eleven WebP card illustrations were derived from artwork newly generated for this conversation, cropped into separate illustration regions and resized. The full generated interface concept is not used as a functioning screenshot and is not embedded in the product: its decorative sample news and UI labels are not app data.
+This release reuses all eleven local WebP card illustrations and all three SVG decorations from v0.2.1 byte-for-byte. No new generative artwork was required. The existing artwork originated in earlier generated material for this conversation. Card frames, labels, navigation and interactions are live HTML/CSS, not a flattened concept image.
 
-The card frames, typography, states, buttons and all interaction are live HTML/CSS. `card-back.svg`, `sigil.svg` and `mountains.svg` are locally authored vector decorations. No font binaries or third-party downloaded graphics are bundled.
+No font binaries, external font services or downloaded third-party graphics are included. The redesigned pine/ink background, warm gold accents and typography use CSS and system fonts.
 
-Meaning is independent of decoration. A card always addresses a fixed operator or concept. Card flip, card order, particles and synthesized sound do not choose an answer, create evidence, improve a score or trigger an extra model request.
+`home-preview.png`, `table-preview.png`, `lenses-preview.png`, `reading-preview.png` and mobile previews are captures of the actual implemented UI. In this restricted environment Chromium was rendered through the documented render bridge: original app HTML/CSS/JS, embedded local assets, requests forwarded to the actual Node server. These are not generated mockups. The original v0.2 GIF has been removed to avoid representing it as the v0.3 interface.
 
-The screenshots in this folder are captures of the implemented app. `deal-preview.gif` is a capture of its actual animation, not a rendered mock interface.
+Card selection is a fixed reasoning direction. Animation, particles and optional synthesized sound do not choose an answer, score an insight or trigger a model call. `effects.js` is unchanged; reduced-motion handling is preserved and supported by the new CSS.
 
-Animation implementation references:
+References for browser primitives:
 - https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
-- https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
-- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion
-
-The app uses native Web Animations, CSS 3D transforms, Canvas 2D and optional Web Audio. Effects stop when the document is hidden and can be reduced by the user. No external animation dependency is required.
+- https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
