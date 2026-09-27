@@ -4,19 +4,22 @@ assets, and API requests are forwarded to the actual local server. SSE is tested
 separately in Node; the UI bridge exercises the existing polling fallback.
 """
 from pathlib import Path
-import re,base64,json,urllib.request,urllib.error
+import re,base64,json,urllib.request,urllib.error,asyncio
 ROOT=Path(__file__).resolve().parents[1]/'lab'/'public'
 def setup(page, base_url):
     assets={}
     for f in (ROOT/'assets').iterdir():
         mime={'.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png'}.get(f.suffix,'application/octet-stream')
         assets[f.name]='data:'+mime+';base64,'+base64.b64encode(f.read_bytes()).decode()
-    def bridge(payload):
+    def forward(payload):
         url=base_url.rstrip('/')+payload['path']
         req=urllib.request.Request(url,data=payload.get('body').encode() if payload.get('body') else None,method=payload.get('method','GET'),headers={'content-type':'application/json'})
         try:
             with urllib.request.urlopen(req,timeout=60) as response:return {'status':response.status,'text':response.read().decode()}
         except urllib.error.HTTPError as e:return {'status':e.code,'text':e.read().decode()}
+    async def bridge(payload):
+        # Never block other API calls / timers while a model request is pending.
+        return await asyncio.to_thread(forward,payload)
     page.expose_function('localApiBridge',bridge)
     page.goto('about:blank')
     page.evaluate('''() => {
@@ -40,3 +43,13 @@ def setup(page, base_url):
     for name,url in assets.items():app=app.replace('/assets/'+name,url)
     page.add_script_tag(content=app)
     page.wait_for_function('document.querySelector("#connection").textContent.includes("本机已连接")')
+
+
+def install_native_test_probes(page):
+    """Expose read-only module state in the *test response* only.
+    Production app.js stays an ES module with no global state API.
+    """
+    app=ROOT.joinpath('app.js').read_text()
+    names=['busy','current','observationId','caps','mapping','demo','openRun','FX']
+    probes='\n'+''.join("Object.defineProperty(window,"+json.dumps(name)+",{get:()=>"+name+",configurable:true});" for name in names)
+    page.route('**/app.js',lambda route:route.fulfill(status=200,content_type='text/javascript',body=app+probes))

@@ -22,7 +22,7 @@
     </nav>
     <div class="side-section"><div class="side-label">当前实验 <button class="small-icon" id="newRun" title="新实验" aria-label="新实验">＋</button></div><select id="runSelect" aria-label="切换实验"><option value="">尚未开局</option></select><div id="sideStats" class="side-stats">让信息，在这里留下痕迹。</div></div>
     <div class="side-quest"><span class="eyebrow">本局旅程</span><ol id="quest"><li>投下一条信息</li><li>展开六象定位</li><li>选牌，发现新线索</li><li>记录判断，等待反馈</li></ol></div>
-    <div class="sidebar-bottom"><p>不执一象，<br>而观其变。</p><small>v0.2 · 本机实验台</small><button id="settingsSide" class="text-button">模型与实验设置 <span>↗</span></button></div>
+    <div class="sidebar-bottom"><p>不执一象，<br>而观其变。</p><small>v0.2.1 · 本机实验台</small><button id="settingsSide" class="text-button">模型与实验设置 <span>↗</span></button></div>
   </aside>
   <main id="main">
     <header class="topbar"><div class="breadcrumb">观测现实 <span>/</span> <strong id="viewLabel">观天台</strong></div><div class="top-actions"><span id="connection" class="connection"><i></i>连接中</span><button id="sound" class="icon-button" title="开启音效" aria-label="开启音效">♪</button><button id="motion" class="icon-button" title="关闭动态效果" aria-label="关闭动态效果">✧</button><button id="settings" class="icon-button" title="设置" aria-label="模型与实验设置">⚙</button><button id="importTop" class="button small">＋ 投入信息</button></div></header>
@@ -42,6 +42,7 @@
             </div>
           </section>
           <div class="next-move"><div><span class="eyebrow" id="nextLabel">第一步 · 投入信息</span><p id="nextText">粘贴一段文字，或用一个虚构案例体验完整流程。</p></div><button id="primary" class="button gold">投入第一条信息 <span>↗</span></button></div>
+          <section id="operationPanel" class="operation-panel" aria-live="polite" hidden></section>
           <section class="lens-section" aria-label="五张洞见牌"><div class="section-heading"><div><span class="eyebrow">FIVE LENSES · FIVE QUESTIONS</span><h2>选择一扇门，看看另一面。</h2></div><button id="allInsights" class="text-button" disabled>展开全部 <span>↗</span></button></div><div id="hand" class="hand"></div><div class="hand-note"><span id="handHint">先展开六象，再选一张洞见牌。</span><span id="lensCount">0 / 5 已探索</span></div></section>
         </div>
         <aside class="reading-rail">

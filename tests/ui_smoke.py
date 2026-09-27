@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from render_bridge import setup
+from render_bridge import setup,install_native_test_probes
 import json,subprocess,os,time,argparse,shutil
 from pathlib import Path
 parser=argparse.ArgumentParser()
@@ -18,6 +18,7 @@ with sync_playwright() as p:
     if args.bridge:
         setup(page,args.url)
     else:
+        install_native_test_probes(page)
         page.goto(args.url.rstrip('/')+'/lab',wait_until='domcontentloaded')
         page.wait_for_function('document.querySelector("#connection").textContent.includes("本机已连接")')
     assert page.locator('.map-slot').count()==6;checks.append('初始牌桌：六个卡背与五张洞见牌')

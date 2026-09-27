@@ -1,8 +1,14 @@
-# 观天局 · Cyber-Taoist Observatory v0.2
+# 观天局 · Cyber-Taoist Observatory v0.2.1
 
 **把一条信息放上牌桌。六象看位置，五牌问关系，最后留下等待现实检验的线索。**
 
 这是 v0.1 的可运行升级，不是概念图或静态页面。Node.js 本机服务器、网页与 Agent CLI 共用一份实验状态。没有 npm 依赖，也不需要构建。
+
+## v0.2.1：六象展开失败修复
+
+修复多段真实引文被整句校验误拒；新增历史返回的本地恢复、等待与错误面板、可选的分阶段思考参数。**保留 v0.2 全部卡牌和动效，不修改宪章与 Protocol。**
+
+已有 v0.2 用户先看 [保留数据的升级步骤](docs/UPGRADE-v0.2.1.md)，不要用 `.env.example` 覆盖自己的密钥，也不要删除旧 `.tao-lab`。
 
 ![实际运行界面](docs/table-preview.png)
 
@@ -69,7 +75,7 @@ TAO_LLM_ENABLED=1
 TAO_LLM_URL=https://your-provider.example/v1/chat/completions
 TAO_LLM_MODEL=your-model
 TAO_LLM_KEY=your-key
-TAO_LLM_TIMEOUT_MS=45000
+TAO_LLM_TIMEOUT_MS=180000
 ```
 
 重启服务，在网页右上角设置里选择 **LLM 分析**。然后导入信息并明确点击定位或探索。
@@ -82,7 +88,11 @@ API Key 只读取本机服务端环境变量，不写进网页、run 或导出�
 
 每次真实定位通常 1 次调用；单张洞见 1 次；已定位后探索全部最多 5 次。CLI 在没有定位时直接探索，会先进行定位。除非传入 `--force`，重复请求已有结果只读复用。
 
-**失败不降级伪装成功**：超时、非 JSON、缺字段、不受原文支持的 OBSERVED 引文会显式报错并记录；已经完成的其他牌保留。模型调用质量与洞见价值需要真实使用反馈，界面不会自行给“深刻程度”打分。
+**失败不降级伪装成功**：超时、非 JSON、缺字段、不受原文支持的引文会显式报错并记录；已经完成的其他牌保留。多段引用逐段精确匹配，任何伪造片段仍拒绝；UNKNOWN 的旧版缺失信息说明标注为未匹配，而不是原文引文。
+
+v0.2.1 默认请求超时为 180 秒，可配置 1–600 秒，不再把较大的配置静默压到 120 秒；旧 `.env` 中的数值仍优先。新增可选的 `TAO_LLM_THINKING`、`TAO_LLM_REASONING_EFFORT`、token 上限，以及 `MAPPING_` / `INSIGHT_` 分阶段覆盖。默认不强制改变提供方的思考模式，也不自动切换模型。参数兼容性需要按提供方确认；示例在 [升级说明](docs/UPGRADE-v0.2.1.md)。
+
+网页区分“等待模型”“返回后校验失败”“超时 / 空结果 / 截断”，显示真实等待时长而不是虚构进度百分比。已保存完整返回可点击“重新校验旧返回 · 不调用模型”；它保留历史失败 trace，追加恢复事件。付费重试另行确认。模型调用质量与洞见价值需要真实使用反馈，界面不会自行给“深刻程度”打分。
 
 ## 外部材料
 
@@ -106,6 +116,7 @@ node lab/cli.mjs demo
 node lab/cli.mjs create --title "今日信息观测"
 node lab/cli.mjs ingest RUN_ID --file article.md --source "来源"
 node lab/cli.mjs map RUN_ID OBS_ID
+node lab/cli.mjs recover RUN_ID TRACE_ID --observation OBS_ID
 node lab/cli.mjs insight RUN_ID OBS_ID --operator migration
 node lab/cli.mjs feedback RUN_ID INSIGHT_ID --rating insightful
 node lab/cli.mjs evidence RUN_ID HYPOTHESIS_ID --text "新的后果" --stance challenges
@@ -138,7 +149,7 @@ TAO_LAB_HOME=/absolute/path/to/old-project/.tao-lab
 
 `content/PROTOCOL-v0.1.md` 与上版逐字相同，没有因为视觉升级修改协议。`content/CONSTITUTION.md` 是已核对 Git blob 的 v1.0.1 原文快照，不是升级草案。出处与校验值在 `content/SOURCES.json`。
 
-新建 run 固定宪章与 Protocol 文本及组合 hash。后续改磁盘上的提示词，不会偷偷修改旧 run 的上下文。对照局会复制原始信息，清空定位、洞见和评价，捕获新的真实文本快照。
+新建 run 固定宪章与 Protocol 文本及组合 hash。v0.2.1 调整的是模型适配器的输出契约，不是假装升级 Protocol：新 trace 另存 adapterVersion、validatorVersion、有效参数及完整请求 hash。后续改磁盘上的提示词，不会偷偷修改旧 run 的上下文。对照局会复制原始信息，清空定位、洞见和评价，捕获新的真实文本快照。
 
 要测试下一份 Protocol，先添加 `content/PROTOCOL-v0.2.md`，再用 `branch --protocol v0.2`。仅改版本标签而没有对应文件会报错。
 
@@ -151,11 +162,13 @@ npm run lab:check
 npm test
 ```
 
-包含 20 项自动测试，覆盖基础 API、原文保留、完整闭环、幂等复用、并发写入、对照局、CLI、SSE、旧格式和模拟 LLM 的成功/失败路径。另有可选的浏览器交互测试：
+包含 59 项自动测试，覆盖基础 API、原文保留、完整闭环、幂等复用、并发写入、对照局、CLI、SSE、旧格式和模拟 LLM 的成功/失败路径。另有 16 项原有界面检查和 12 项补丁界面检查（本次使用渲染桥接模式）的可选测试：
 
 ```bash
 # 需自行安装 Python Playwright 及浏览器；不是运行产品的依赖。
 python tests/ui_smoke.py --url http://127.0.0.1:4174
+# 补丁测试会自动启动临时服务器和本地模拟模型
+python tests/ui_patch_smoke.py
 ```
 
 测试会新建演示实验，建议对单独的数据目录运行。测试详情与本次验证的限制见 [docs/TEST-REPORT.md](docs/TEST-REPORT.md)。
@@ -165,6 +178,8 @@ python tests/ui_smoke.py --url http://127.0.0.1:4174
 ```text
 lab/server.mjs         本机 API、实时事件、存储、模型适配
 lab/engine.mjs         定位结构、演示案例、洞见与证据记录
+lab/evidence.mjs       逐段引文核验及原文偏移
+lab/llm-config.mjs     显式模型参数、分阶段配置与超时
 lab/cli.mjs            Agent CLI
 lab/public/app.js      牌桌、牌库、手记与实验界面
 lab/public/effects.js  发牌、翻牌、粒子、音效（只负责展示）

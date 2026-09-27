@@ -6,3 +6,4 @@ node_modules/
 .qa/
 __pycache__/
 *.pyc
+.qa-patch/

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
+import {validateEvidence} from './evidence.mjs';
 
-export const VERSION = '0.2.0';
+export const VERSION = '0.2.1';
 export const STATES = ['OBSERVED', 'INFERRED', 'HYPOTHESIS', 'UNKNOWN'];
 export const OPERATORS = {
   gap: {id:'gap', name:'裂隙', english:'THE RIFT', symbol:'R ↔ N', roman:'I', question:'旧规则，哪里开始失灵？', description:'找出旧规则与新后果之间的裂缝。'},
@@ -81,7 +82,7 @@ export function makeInsight(o,op,p,provider='baseline') {
   const ins={id:uid('ins'),observationId:o.id,operatorId:op,operator:OPERATORS[op].name,
     symbol:OPERATORS[op].symbol,state:'HYPOTHESIS',headline:p.headline||p.text.slice(0,50),
     text:p.text,alternative:p.alternative||'尚无足够证据区分其他解释。',evidence:p.evidence||'',
-    createdAt:now(),provider};
+    createdAt:now(),provider,...(p.evidenceSegments?{evidenceSegments:p.evidenceSegments,evidenceStatus:p.evidenceStatus,evidenceValidator:p.evidenceValidator,evidenceOffsetUnit:p.evidenceOffsetUnit}: {})};
   return {insight:ins,hypothesis:{id:uid('H'),observationId:o.id,insightId:ins.id,status:'open',statement:p.text,
     verificationSignal:p.verificationSignal,refutationSignal:p.refutationSignal||'出现与预期相反的可复查后果时重新审视。',createdAt:now(),evidence:[]}};
 }
@@ -102,14 +103,33 @@ export function parseJsonResponse(raw) {
   let data;try{data=JSON.parse(clean);}catch{throw Error('LLM 返回的内容不是有效 JSON；已保留错误记录，不会降级成演示结果。');}
   if(!data||Array.isArray(data)||typeof data!=='object')throw Error('LLM JSON 必须是对象');return data;
 }
-export function validateMapping(data) {
-  const map=data.mapping||data;
+export function validateMapping(data, rawContent) {
+  const map=data.mapping||data, result={};
   for(const k of Object.keys(CONCEPTS)) {
     if(!map[k]||!STATES.includes(map[k].state))throw Error(`LLM 定位缺少有效的 ${k}.state`);
-    requireString(map[k].value,`${k}.value`,5000);
-    for(const f of ['evidence','unknown'])if(typeof map[k][f]!=='string')throw Error(`LLM 定位缺少 ${k}.${f}`);
+    const v=map[k];requireString(v.value,`${k}.value`,5000);
+    if(typeof v.unknown!=='string')throw Error(`LLM 定位缺少 ${k}.unknown`);
+    if(typeof v.evidence!=='string'&&!Array.isArray(v.evidence))throw Error(`LLM 定位缺少 ${k}.evidence`);
+    let proof={evidence:v.evidence};
+    if(rawContent!==undefined) {
+      try{proof=validateEvidence(rawContent,v.evidence,{required:v.state==='OBSERVED',label:`${k}.evidence`});}
+      catch(e) {
+        // Legacy UNKNOWN cards sometimes contain a missing-data explanation in
+        // the evidence field. Preserve it, but never display it as a quote.
+        if(v.state!=='UNKNOWN'||typeof v.evidence!=='string')throw e;
+        proof={evidence:v.evidence,evidenceSegments:[],evidenceStatus:'unverified',evidenceNote:'UNKNOWN 的此项说明未逐字匹配，不作为原文引文。'};
+      }
+    }
+    result[k]={state:v.state,value:v.value,...proof,unknown:v.unknown};
   }
-  return Object.fromEntries(Object.keys(CONCEPTS).map(k=>[k,{state:map[k].state,value:map[k].value,evidence:map[k].evidence,unknown:map[k].unknown}]));
+  if(!['HYPOTHESIS','UNKNOWN'].includes(result.N.state))throw Object.assign(Error('N 不允许标记为已证实或直接观测'),{code:'MAPPING_STATE_INVALID'});
+  return result;
+}
+export function validateInsight(data, rawContent) {
+  for(const f of ['headline','text','alternative','verificationSignal','refutationSignal']) {
+    if(typeof data[f]!=='string')throw Error(`洞见缺少 ${f}`);
+  }
+  return {...data,...validateEvidence(rawContent,data.evidence,{label:'insight.evidence'})};
 }
 export function recordFeedback(run,{targetId,rating,note=''}={}) {
   if(!run.insights.some(x=>x.id===targetId))throw Error('反馈目标不存在');

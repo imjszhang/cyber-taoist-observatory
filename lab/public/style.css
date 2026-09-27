@@ -8,3 +8,25 @@
 
 /* Larger readable text in the result, without turning the table into a report. */
 @media(min-width:741px){.detail-content>p{font-size:13px}.detail-content .focus-block p{font-size:12px}.detail-content .focus-block h4{font-size:11px}.rating{font-size:11px}}
+
+/* v0.2.1: transport state and citation receipts, without changing card artwork. */
+.operation-panel {margin:0 0 26px;padding:20px 22px;border:1px solid #78673d;border-radius:12px;background:rgba(27,25,19,.9);font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.operation-panel[hidden]{display:none}
+.operation-title{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#efd5a0}
+.operation-title>span:last-child:not(.spinner){font-size:11px;color:var(--muted);letter-spacing:.04em}
+.operation-panel.failed{border-color:#a16a52;background:rgba(46,26,25,.86)}
+.operation-panel.recovered{border-color:#5f8475;background:rgba(26,43,38,.86)}
+.operation-panel.recovered strong{color:#9bccb5}
+.operation-error{white-space:pre-wrap;color:#e1b5a6}
+.recovery-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.quote-list{margin:8px 0;padding-left:22px}
+.quote-list li{padding-left:3px;margin:0 0 12px}
+.quote-list blockquote{white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 3px;color:inherit}
+.quote-list small{font-size:10px;color:var(--muted)}
+.quote-group .small-note{font-size:11px;line-height:1.6}
+.citation-warning{font-size:11px;color:#d8ba80}
+.detail-evidence-back{overflow:auto}
+.detail-evidence-back .quote-list{font-size:12px;text-align:left;padding-left:16px}
+.detail-evidence-back .quote-list small{font-size:9px}
+.detail-evidence-back .small-note{font-size:10px}
+@media(max-width:600px){.operation-panel{padding:15px}.recovery-actions .button{width:100%;white-space:normal}.quote-list{padding-left:17px}}

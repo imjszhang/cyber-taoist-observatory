@@ -1,0 +1,67 @@
+{
+  "version": "0.2.1",
+  "runtime": "Node.js 22.16.0 / Linux",
+  "serverAndCLI": {
+    "passed": 59,
+    "failed": 0
+  },
+  "uiBase": {
+    "passed": 16,
+    "checks": [
+      "初始牌桌：六个卡背与五张洞见牌",
+      "虚构示例：发牌、翻牌与具体定位",
+      "动画重放不写状态，不调用模型",
+      "六象牌正反面与引用依据",
+      "选定洞见方向后生成候选假说",
+      "人类评价保存、选中状态持久化",
+      "证据追加，支持与挑战不冒充自动证实",
+      "五牌全探索与洞见手记",
+      "11 张完整牌库与规则说明",
+      "创建对照局仅复制原始信息",
+      "外部材料以文本呈现，HTML 不执行",
+      "自有输入的基线诚实标明 UNKNOWN",
+      "Agent CLI 写入后，网页读取同一 run",
+      "系统减弱动态偏好得到响应",
+      "390px 手机布局无横向溢出",
+      "手机洞见详情可滚动且无横向溢出"
+    ],
+    "errors": []
+  },
+  "uiPatch": {
+    "passed": 12,
+    "checks": [
+      "旧失败局加载：持久显示校验失败与无调用恢复入口",
+      "点击恢复：六张牌展开、模型调用数不变、旧 invalid 保留",
+      "引用正面按片段显示；标明省略与真实性边界",
+      "卡牌背面保留分段证据与原文索引",
+      "移动端证据详情没有横向溢出",
+      "含伪造片段的历史返回仍拒绝，无新定位也无新模型调用",
+      "失败后可直接查看原 trace 和追加的恢复失败事件",
+      "付费重试先确认，不因失败或刷新自动重发",
+      "等待模型时显示耗时/超时上限，禁止重复点击",
+      "确认重试只调用一次，成功后退出错误面板并展开六象",
+      "洞见牌也显示逐段核验后的依据",
+      "设置页显示实际分阶段请求参数，不显示密钥"
+    ],
+    "errors": [],
+    "mode": "render bridge"
+  },
+  "browserMode": "render bridge; native navigation blocked by administrator policy",
+  "commercialProviderTested": false,
+  "nativeMacWindowsTested": false,
+  "freshExtractSmoke": {
+    "passed": true,
+    "startCommand": "npm run lab:start",
+    "dependenciesInstalled": false,
+    "steps": [
+      "fresh ZIP extraction",
+      "capabilities version 0.2.1 and traceRecovery",
+      "CLI demo",
+      "CLI map: six cards",
+      "CLI all insights: five hypotheses",
+      "CLI export",
+      "extracted npm test: 59 passed"
+    ],
+    "paidModelCalls": 0
+  }
+}

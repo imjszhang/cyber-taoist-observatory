@@ -1,0 +1,368 @@
+
+> cyber-taoist-observatory@0.2.1 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: incident: first reported R evidence passes as two real quotes
+ok 1 - incident: first reported R evidence passes as two real quotes
+  ---
+  duration_ms: 2.28205
+  type: 'test'
+  ...
+# Subtest: incident: second S evidence supports fullwidth separator and only removable wrapper quotes
+ok 2 - incident: second S evidence supports fullwidth separator and only removable wrapper quotes
+  ---
+  duration_ms: 1.287977
+  type: 'test'
+  ...
+# Subtest: incident: second R evidence retains source quotation marks inside the first quote
+ok 3 - incident: second R evidence retains source quotation marks inside the first quote
+  ---
+  duration_ms: 0.181483
+  type: 'test'
+  ...
+# Subtest: incident: six cards validate and UNKNOWN explanations are not labeled as source quotes
+ok 4 - incident: six cards validate and UNKNOWN explanations are not labeled as source quotes
+  ---
+  duration_ms: 0.574053
+  type: 'test'
+  ...
+# Subtest: direct exact excerpt is preserved, even with semicolons and line breaks
+ok 5 - direct exact excerpt is preserved, even with semicolons and line breaks
+  ---
+  duration_ms: 0.203466
+  type: 'test'
+  ...
+# Subtest: composite evidence with an internal literal semicolon is not over-split
+ok 6 - composite evidence with an internal literal semicolon is not over-split
+  ---
+  duration_ms: 0.243676
+  type: 'test'
+  ...
+# Subtest: new evidence arrays map to exact UTF-16 offsets without combining fragments
+ok 7 - new evidence arrays map to exact UTF-16 offsets without combining fragments
+  ---
+  duration_ms: 0.310126
+  type: 'test'
+  ...
+# Subtest: multiple quote styles can be removed only around an exact source excerpt
+ok 8 - multiple quote styles can be removed only around an exact source excerpt
+  ---
+  duration_ms: 0.319921
+  type: 'test'
+  ...
+# Subtest: original quotation marks are preserved when the entire quoted text exists
+ok 9 - original quotation marks are preserved when the entire quoted text exists
+  ---
+  duration_ms: 0.428324
+  type: 'test'
+  ...
+# Subtest: CRLF, newlines and harmless edge whitespace are supported
+ok 10 - CRLF, newlines and harmless edge whitespace are supported
+  ---
+  duration_ms: 0.490868
+  type: 'test'
+  ...
+# Subtest: matching is case-sensitive and does not rewrite words or punctuation
+ok 11 - matching is case-sensitive and does not rewrite words or punctuation
+  ---
+  duration_ms: 0.590007
+  type: 'test'
+  ...
+# Subtest: one invented fragment rejects the entire claimed observed quote
+ok 12 - one invented fragment rejects the entire claimed observed quote
+  ---
+  duration_ms: 0.228313
+  type: 'test'
+  ...
+# Subtest: ellipsis joins are rejected rather than treated as source text
+ok 13 - ellipsis joins are rejected rather than treated as source text
+  ---
+  duration_ms: 0.628425
+  type: 'test'
+  ...
+# Subtest: quotation stripping cannot erase mismatched inner quotation marks
+ok 14 - quotation stripping cannot erase mismatched inner quotation marks
+  ---
+  duration_ms: 0.192921
+  type: 'test'
+  ...
+# Subtest: arrays reject empty pieces, nested objects and independently invented segments
+ok 15 - arrays reject empty pieces, nested objects and independently invented segments
+  ---
+  duration_ms: 0.223456
+  type: 'test'
+  ...
+# Subtest: empty evidence is allowed for uncertainty, never for OBSERVED
+ok 16 - empty evidence is allowed for uncertainty, never for OBSERVED
+  ---
+  duration_ms: 0.19957
+  type: 'test'
+  ...
+# Subtest: punctuation flood has a bounded validation cost
+ok 17 - punctuation flood has a bounded validation cost
+  ---
+  duration_ms: 0.176836
+  type: 'test'
+  ...
+# Subtest: all quote arrays have a strict size limit
+ok 18 - all quote arrays have a strict size limit
+  ---
+  duration_ms: 0.130686
+  type: 'test'
+  ...
+# Subtest: claiming Nature as directly OBSERVED remains forbidden
+ok 19 - claiming Nature as directly OBSERVED remains forbidden
+  ---
+  duration_ms: 0.457698
+  type: 'test'
+  ...
+# Subtest: insight evidence uses the same validator; forged fragments do not become hypotheses
+ok 20 - insight evidence uses the same validator; forged fragments do not become hypotheses
+  ---
+  duration_ms: 0.249516
+  type: 'test'
+  ...
+# Subtest: capabilities, real artwork MIME and static UI are served
+ok 21 - capabilities, real artwork MIME and static UI are served
+  ---
+  duration_ms: 60.955597
+  type: 'test'
+  ...
+# Subtest: GET never creates or advances an experiment
+ok 22 - GET never creates or advances an experiment
+  ---
+  duration_ms: 21.762198
+  type: 'test'
+  ...
+# Subtest: raw input is preserved byte-for-byte and generic baseline remains UNKNOWN
+ok 23 - raw input is preserved byte-for-byte and generic baseline remains UNKNOWN
+  ---
+  duration_ms: 8.281631
+  type: 'test'
+  ...
+# Subtest: demo: six mappings, five distinct hypotheses and stable idempotent reuse
+ok 24 - demo: six mappings, five distinct hypotheses and stable idempotent reuse
+  ---
+  duration_ms: 18.212096
+  type: 'test'
+  ...
+# Subtest: operator errors and empty observations never create phantom results
+ok 25 - operator errors and empty observations never create phantom results
+  ---
+  duration_ms: 7.976252
+  type: 'test'
+  ...
+# Subtest: human ratings are append-only, validated and separate from evidence
+ok 26 - human ratings are append-only, validated and separate from evidence
+  ---
+  duration_ms: 11.218236
+  type: 'test'
+  ...
+# Subtest: support and challenge evidence retains the original hypothesis and all feedback
+ok 27 - support and challenge evidence retains the original hypothesis and all feedback
+  ---
+  duration_ms: 7.574498
+  type: 'test'
+  ...
+# Subtest: branch copies observations, clears conclusions and snapshots real protocol text
+ok 28 - branch copies observations, clears conclusions and snapshots real protocol text
+  ---
+  duration_ms: 8.291997
+  type: 'test'
+  ...
+# Subtest: unknown protocol versions cannot be cosmetic labels
+ok 29 - unknown protocol versions cannot be cosmetic labels
+  ---
+  duration_ms: 6.341424
+  type: 'test'
+  ...
+# Subtest: serialized concurrent writes do not lose observations
+ok 30 - serialized concurrent writes do not lose observations
+  ---
+  duration_ms: 21.412002
+  type: 'test'
+  ...
+# Subtest: LLM disabled means explicit failure, not baseline fallback
+ok 31 - LLM disabled means explicit failure, not baseline fallback
+  ---
+  duration_ms: 5.627731
+  type: 'test'
+  ...
+# Subtest: real adapter contract: context injection, source quotes, trace, no secret leakage
+ok 32 - real adapter contract: context injection, source quotes, trace, no secret leakage
+  ---
+  duration_ms: 12.876038
+  type: 'test'
+  ...
+# Subtest: concurrent live map requests share existing results rather than double-calling
+ok 33 - concurrent live map requests share existing results rather than double-calling
+  ---
+  duration_ms: 35.506
+  type: 'test'
+  ...
+# Subtest: malformed LLM JSON leaves an auditable failure without invented output
+ok 34 - malformed LLM JSON leaves an auditable failure without invented output
+  ---
+  duration_ms: 8.117875
+  type: 'test'
+  ...
+# Subtest: unsupported OBSERVED quotes are rejected instead of appearing as facts
+ok 35 - unsupported OBSERVED quotes are rejected instead of appearing as facts
+  ---
+  duration_ms: 7.783262
+  type: 'test'
+  ...
+# Subtest: SSE broadcasts the same run revision that REST returns
+ok 36 - SSE broadcasts the same run revision that REST returns
+  ---
+  duration_ms: 4.524843
+  type: 'test'
+  ...
+# Subtest: cross-origin mutations, unsafe hosts and unsupported content-types are rejected
+ok 37 - cross-origin mutations, unsafe hosts and unsupported content-types are rejected
+  ---
+  duration_ms: 6.605412
+  type: 'test'
+  ...
+# Subtest: older v0.1 runs load without rewriting original observations or history
+ok 38 - older v0.1 runs load without rewriting original observations or history
+  ---
+  duration_ms: 2.774371
+  type: 'test'
+  ...
+# Subtest: CLI is a real JSON client with nonzero errors and file export
+ok 39 - CLI is a real JSON client with nonzero errors and file export
+  ---
+  duration_ms: 333.553256
+  type: 'test'
+  ...
+# Subtest: JSON parser accepts fenced JSON but not prose with a hidden object
+ok 40 - JSON parser accepts fenced JSON but not prose with a hidden object
+  ---
+  duration_ms: 0.348153
+  type: 'test'
+  ...
+# Subtest: configuration: no forced reasoning or token settings by default
+ok 41 - configuration: no forced reasoning or token settings by default
+  ---
+  duration_ms: 1.396449
+  type: 'test'
+  ...
+# Subtest: configuration: >120s survives without silent clamping and per-stage overrides are distinct
+ok 42 - configuration: >120s survives without silent clamping and per-stage overrides are distinct
+  ---
+  duration_ms: 0.21995
+  type: 'test'
+  ...
+# Subtest: configuration: invalid values are rejected, never silently discarded
+ok 43 - configuration: invalid values are rejected, never silently discarded
+  ---
+  duration_ms: 0.404278
+  type: 'test'
+  ...
+# Subtest: configuration: default stage effort suppresses inherited effort deliberately
+ok 44 - configuration: default stage effort suppresses inherited effort deliberately
+  ---
+  duration_ms: 0.157647
+  type: 'test'
+  ...
+# Subtest: live mapping: reported semicolon evidence is accepted, quotes resolved and usage audited
+ok 45 - live mapping: reported semicolon evidence is accepted, quotes resolved and usage audited
+  ---
+  duration_ms: 45.952327
+  type: 'test'
+  ...
+# Subtest: new insight citations checked while mapping and successful prior cards survive later failure
+ok 46 - new insight citations checked while mapping and successful prior cards survive later failure
+  ---
+  duration_ms: 29.07364
+  type: 'test'
+  ...
+# Subtest: preflight failure for insight never invalidates the successful mapping trace in the same operation
+ok 47 - preflight failure for insight never invalidates the successful mapping trace in the same operation
+  ---
+  duration_ms: 15.784201
+  type: 'test'
+  ...
+# Subtest: recovery: old invalid trace restored without LLM, original trace unchanged, retries idempotent
+ok 48 - recovery: old invalid trace restored without LLM, original trace unchanged, retries idempotent
+  ---
+  duration_ms: 7.452915
+  type: 'test'
+  ...
+# Subtest: recovery: made-up evidence still rejected and historical invalid trace not rewritten
+ok 49 - recovery: made-up evidence still rejected and historical invalid trace not rewritten
+  ---
+  duration_ms: 6.942688
+  type: 'test'
+  ...
+# Subtest: recovery: source binding prevents attaching a valid answer to a different observation
+ok 50 - recovery: source binding prevents attaching a valid answer to a different observation
+  ---
+  duration_ms: 6.763118
+  type: 'test'
+  ...
+# Subtest: recovery: identical legacy observations need explicit disambiguation
+ok 51 - recovery: identical legacy observations need explicit disambiguation
+  ---
+  duration_ms: 4.435619
+  type: 'test'
+  ...
+# Subtest: recovery: existing mapping cannot be overwritten without explicit force
+ok 52 - recovery: existing mapping cannot be overwritten without explicit force
+  ---
+  duration_ms: 5.910156
+  type: 'test'
+  ...
+# Subtest: recovery: CLI executes local revalidation and exposes structured failures
+ok 53 - recovery: CLI executes local revalidation and exposes structured failures
+  ---
+  duration_ms: 131.42184
+  type: 'test'
+  ...
+# Subtest: recovery: stored insight can be validated without another call
+ok 54 - recovery: stored insight can be validated without another call
+  ---
+  duration_ms: 7.827368
+  type: 'test'
+  ...
+# Subtest: output token exhaustion is explicit even when returned JSON happens to parse
+ok 55 - output token exhaustion is explicit even when returned JSON happens to parse
+  ---
+  duration_ms: 17.844428
+  type: 'test'
+  ...
+# Subtest: reasoning-only or empty final content cannot masquerade as a usable answer
+ok 56 - reasoning-only or empty final content cannot masquerade as a usable answer
+  ---
+  duration_ms: 15.801236
+  type: 'test'
+  ...
+# Subtest: HTTP failure does not retry or discard configured reasoning parameters
+ok 57 - HTTP failure does not retry or discard configured reasoning parameters
+  ---
+  duration_ms: 10.433466
+  type: 'test'
+  ...
+# Subtest: actual deadline abort leaves a timeout receipt with no invented result and no retry
+ok 58 - actual deadline abort leaves a timeout receipt with no invented result and no retry
+  ---
+  duration_ms: 1015.229732
+  type: 'test'
+  ...
+# Subtest: GET and refresh of an old failed run never recover it or modify disk
+ok 59 - GET and refresh of an old failed run never recover it or modify disk
+  ---
+  duration_ms: 6.356696
+  type: 'test'
+  ...
+1..59
+# tests 59
+# suites 0
+# pass 59
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1614.529895
