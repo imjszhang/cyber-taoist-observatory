@@ -1,0 +1,5 @@
+{
+  "name":"cyber-taoist","private":true,"type":"module",
+  "bin":{"cybertaoist":"./tools/cli.js","tao-lab":"./lab/cli.mjs"},
+  "scripts":{"content:sync":"node tools/sync-content.mjs","site:dev":"node tools/build.js && npx serve dist","site:build":"node tools/build.js","site:preview":"npx serve dist -l 3000","cli":"node tools/cli.js","lab:start":"node lab/server.mjs","lab:cli":"node lab/cli.mjs","lab:check":"node --check lab/engine.mjs && node --check lab/server.mjs && node --check lab/cli.mjs && node --check lab/public/app.js","cf:setup":"node tools/setup-cloudflare.js","gh:pages":"node tools/setup-github-pages.js","deploy:setup":"npm run cf:setup && npm run gh:pages"}
+}
