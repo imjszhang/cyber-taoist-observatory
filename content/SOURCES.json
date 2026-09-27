@@ -1,0 +1,18 @@
+{
+  "constitution": {
+    "version": "v1.0.1",
+    "repository": "imjszhang/cyber-taoist",
+    "commit": "fc1f39e226708c30c99ccebe789e20dbfefd97e9",
+    "path": "content/CONSTITUTION.md",
+    "gitBlobSha": "10cbce67155b843800e09af93d7d158a96179b49",
+    "sha256": "3a1d873acf4bf3fa1828c1a3cc90c28dd7520b2859da5dabb07678e40db00785",
+    "modified": false
+  },
+  "protocol": {
+    "version": "v0.1",
+    "source": "user-provided cyber-taoist-observatory-v0.1.zip",
+    "path": "content/PROTOCOL-v0.1.md",
+    "sha256": "139a6296c14e40e820f13588dd0b31d82c36e6c5f401d360432a0ea0ddc93cd6",
+    "modified": false
+  }
+}

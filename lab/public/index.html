@@ -1,1 +1,64 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cyber-Taoist Observatory</title><link rel="stylesheet" href="/style.css"></head><body><main><header><div><b>CYBER-TAOIST OBSERVATORY</b><span>v0.1 · 观天台</span></div><button id="newRun">新实验</button></header><section class="top"><aside><h2>实验</h2><div id="runs"></div></aside><article><div class="runhead"><div><h1 id="title">选择或创建实验</h1><small id="meta"></small></div><button id="branch" disabled>分支</button></div><div class="ingest"><textarea id="content" placeholder="粘贴一条新闻、Tweet、论文摘要或观察……"></textarea><input id="source" placeholder="来源 / URL（可选）"><button id="ingest">导入信息</button></div><div id="workspace"></div></article></section></main><script type="module" src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a131a"><meta name="description" content="观天局：把现实信息放上牌桌，六象定位，五种视角，留下可验证的洞见。">
+  <title>观天局 · Cyber-Taoist Observatory</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/sigil.svg">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas><canvas id="particles" aria-hidden="true"></canvas>
+<a class="skip" href="#main">跳到观天台</a>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="/lab" class="brand"><img src="/assets/sigil.svg" alt="" width="40" height="40"><div><strong>观天局</strong><span>THE OBSERVATORY</span></div></a>
+    <div class="side-rule"><span>CYBER–TAOIST</span><i></i></div>
+    <nav aria-label="主导航">
+      <button class="nav-item active" data-view="table"><span class="nav-icon">◈</span><span>观天台<small>THE TABLE</small></span><i></i></button>
+      <button class="nav-item" data-view="journal"><span class="nav-icon">▤</span><span>洞见手记<small>FIELD NOTES</small></span><b id="journalCount">0</b></button>
+      <button class="nav-item" data-view="library"><span class="nav-icon">✧</span><span>牌库<small>THE ARCANA</small></span></button>
+      <button class="nav-item" data-view="history"><span class="nav-icon">◷</span><span>实验记录<small>THE CHRONICLE</small></span></button>
+    </nav>
+    <div class="side-section"><div class="side-label">当前实验 <button class="small-icon" id="newRun" title="新实验" aria-label="新实验">＋</button></div><select id="runSelect" aria-label="切换实验"><option value="">尚未开局</option></select><div id="sideStats" class="side-stats">让信息，在这里留下痕迹。</div></div>
+    <div class="side-quest"><span class="eyebrow">本局旅程</span><ol id="quest"><li>投下一条信息</li><li>展开六象定位</li><li>选牌，发现新线索</li><li>记录判断，等待反馈</li></ol></div>
+    <div class="sidebar-bottom"><p>不执一象，<br>而观其变。</p><small>v0.2 · 本机实验台</small><button id="settingsSide" class="text-button">模型与实验设置 <span>↗</span></button></div>
+  </aside>
+  <main id="main">
+    <header class="topbar"><div class="breadcrumb">观测现实 <span>/</span> <strong id="viewLabel">观天台</strong></div><div class="top-actions"><span id="connection" class="connection"><i></i>连接中</span><button id="sound" class="icon-button" title="开启音效" aria-label="开启音效">♪</button><button id="motion" class="icon-button" title="关闭动态效果" aria-label="关闭动态效果">✧</button><button id="settings" class="icon-button" title="设置" aria-label="模型与实验设置">⚙</button><button id="importTop" class="button small">＋ 投入信息</button></div></header>
+    <div id="connectionError" class="error-banner" hidden></div>
+    <div class="hero"><div><div class="eyebrow">INFORMATION INTO INSIGHT</div><h1 id="heroTitle">观一条信息，见另一种可能。</h1><p id="heroSubtitle">落位不是答案。换一张牌，问一个原文没有问过的问题。</p></div><button id="modeButton" class="mode-tag"><i></i><span id="modeLabel">演示 / 模板模式</span><small>切换模式 ↗</small></button></div>
+    <section id="view-table" class="view">
+      <div class="stepper" aria-label="操作进程"><div data-step="1"><b>01</b><span>投入信息</span></div><i></i><div data-step="2"><b>02</b><span>六象定位</span></div><i></i><div data-step="3"><b>03</b><span>洞见探索</span></div><i></i><div data-step="4"><b>04</b><span>留下判断</span></div></div>
+      <div class="table-layout">
+        <div class="table-main">
+          <section class="board panel" aria-label="六象定位牌阵"><div class="panel-top"><div><span class="gold-dot">✦</span><h2>六象 · 定位阵</h2></div><button id="replay" class="text-button" disabled>↻ 重放动画</button></div>
+            <div class="spread" id="spread">
+              <svg class="orbit" viewBox="0 0 600 470" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="300" cy="245" r="177" stroke-width=".7"/><circle cx="300" cy="245" r="157" stroke-width=".5" stroke-dasharray="1 11"/><circle cx="300" cy="245" r="114" stroke-width=".45"/><path d="M300 58L469 150L469 335L300 426L131 335L131 150Z" stroke-width=".5"/><path d="M300 58V426M131 150L469 335M469 150L131 335" stroke-width=".4" opacity=".6"/></g><g fill="currentColor"><circle cx="300" cy="58" r="3"/><circle cx="469" cy="150" r="2"/><circle cx="469" cy="335" r="2"/><circle cx="300" cy="426" r="3"/><circle cx="131" cy="335" r="2"/><circle cx="131" cy="150" r="2"/></g></svg>
+              <div class="table-landscape" aria-hidden="true"></div><div class="map-cards" id="mapCards"></div>
+              <button class="center-sigil" id="centerSigil" aria-label="查看当前信息"><span class="sigil-halo"></span><img src="/assets/sigil.svg" alt="" width="82" height="82"><span id="sigilLabel">万象未启</span></button>
+              <button id="deck" class="deck" aria-label="展开六象牌阵"><span></span><span></span><img src="/assets/card-back.svg" alt="牌堆"><small>六象之牌</small></button>
+              <div class="board-caption"><span id="boardStatus">现实是来信，牌是观察的方式。</span><span id="mapCount">0 / 6</span></div>
+            </div>
+          </section>
+          <div class="next-move"><div><span class="eyebrow" id="nextLabel">第一步 · 投入信息</span><p id="nextText">粘贴一段文字，或用一个虚构案例体验完整流程。</p></div><button id="primary" class="button gold">投入第一条信息 <span>↗</span></button></div>
+          <section class="lens-section" aria-label="五张洞见牌"><div class="section-heading"><div><span class="eyebrow">FIVE LENSES · FIVE QUESTIONS</span><h2>选择一扇门，看看另一面。</h2></div><button id="allInsights" class="text-button" disabled>展开全部 <span>↗</span></button></div><div id="hand" class="hand"></div><div class="hand-note"><span id="handHint">先展开六象，再选一张洞见牌。</span><span id="lensCount">0 / 5 已探索</span></div></section>
+        </div>
+        <aside class="reading-rail">
+          <section class="source-panel panel"><div class="panel-top"><div><span class="gold-dot">◉</span><h2>信息之种</h2></div><button id="addMore" class="small-icon" aria-label="添加信息">＋</button></div><div id="sourcePanel"></div></section>
+          <section class="focus-panel panel"><div class="panel-top"><div><span class="gold-dot">✧</span><h2 id="focusHeading">此刻，看见什么</h2></div></div><div id="focusPanel"></div></section>
+          <section class="journal-preview" id="journalPreview"></section>
+          <div class="table-note"><span>⌁</span><p>牌面提供视角，不替现实给出答案。<br>有启发 ≠ 已证实。</p></div>
+        </aside>
+      </div>
+    </section>
+    <section id="view-journal" class="view" hidden><div class="section-heading"><h2>留下的线索</h2><span class="muted">所有结果自动保存；评价与事实证据分开记录。</span></div><div id="journal"></div></section>
+    <section id="view-library" class="view" hidden><div class="library-intro panel"><span class="eyebrow">ELEVEN ARCANA</span><h2>六张牌，看清位置。五张牌，推开可能。</h2><p>牌不是随机的预言。每张牌是一道固定的问题；点击查看它的含义与证据边界。</p></div><div id="library"></div></section>
+    <section id="view-history" class="view" hidden><div class="section-heading"><h2>同一局，同一份记录。</h2><div><button id="branch" class="button small">创建对照局</button><button id="export" class="button small">导出 JSON</button></div></div><div id="historyPanel"></div></section>
+    <footer class="main-footer"><span>CYBER–TAOIST OBSERVATORY</span><span>从后果中学习，给未知留一个位置。</span><span id="footerRun">LOCAL · READY</span></footer>
+  </main>
+</div>
+<dialog id="modal" aria-labelledby="modalTitle"><div class="modal-inner"><button id="modalClose" class="modal-close" aria-label="关闭">×</button><div id="modalBody"></div></div></dialog>
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+<script type="module" src="/app.js"></script>
+</body></html>

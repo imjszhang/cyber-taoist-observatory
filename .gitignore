@@ -1,0 +1,8 @@
+.env
+.tao-lab/
+node_modules/
+*.tmp
+.DS_Store
+.qa/
+__pycache__/
+*.pyc
