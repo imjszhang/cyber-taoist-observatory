@@ -167,7 +167,7 @@ function renderRuns() {
   $('#tableIndicator').classList.toggle('on',!!observation());
 }
 function renderHome() {
-  $('#recentRuns').innerHTML=runs.length?`<div class="recent-grid">${runs.slice(0,6).map(r=>`<button class="run-tile" data-open-run="${esc(r.id)}"><div class="run-tile-top"><span>${esc(r.protocol)} · ${r.id===current?.id?'当前实验':'已保存'}</span><span>${date(r.updatedAt)}</span></div><h3>${esc(r.title)}</h3><div class="run-tile-footer"><span>${r.observations?.length||0} 条信息 · ${r.insights?.length||0} 条洞见</span><span>继续观测 ↗</span></div></button>`).join('')}</div>`:`<div class="home-empty"><img src="/assets/sigil.svg" alt=""><div><h3>这里，将留下你的第一局。</h3><p>无需先配置模型。用虚构案例试一试，再带上真实材料。</p></div><button class="text-button" data-action="demo">体验一局 ↗</button></div>`;
+  $('#recentRuns').innerHTML=runs.length?`<div class="recent-grid">${runs.slice(0,6).map(r=>`<button class="run-tile" data-open-run="${esc(r.id)}"><div class="run-tile-top"><span>${esc(r.protocol)} · ${r.id===current?.id?'当前实验':'已保存'}</span><span>${date(r.updatedAt)}</span></div><h3>${esc(r.title)}</h3><div class="run-tile-footer"><span>${r.observations?.length||0} 条信息 · ${r.insightCount??r.insights?.length??0} 条洞见</span><span>继续观测 ↗</span></div></button>`).join('')}</div>`:`<div class="home-empty"><img src="/assets/sigil.svg" alt=""><div><h3>这里，将留下你的第一局。</h3><p>无需先配置模型。用虚构案例试一试，再带上真实材料。</p></div><button class="text-button" data-action="demo">体验一局 ↗</button></div>`;
 }
 function noteGrid(items) {
   if(!items.length)return empty('暂时没有匹配的线索。','切换筛选，或回到牌桌换一个问题。','回到牌桌','table');
