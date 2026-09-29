@@ -1,0 +1,106 @@
+{
+  "version": "0.4.0",
+  "base": "0.3.0",
+  "unchanged": [
+    {
+      "path": "content/CONSTITUTION.md",
+      "sha256": "3a1d873acf4bf3fa1828c1a3cc90c28dd7520b2859da5dabb07678e40db00785",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "content/PROTOCOL-v0.1.md",
+      "sha256": "139a6296c14e40e820f13588dd0b31d82c36e6c5f401d360432a0ea0ddc93cd6",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "content/SOURCES.json",
+      "sha256": "2636fc4d09516b69154616bbb813e2993dcb105725a78a8e9af64cbe12eebe00",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/evidence.mjs",
+      "sha256": "e6e5803713ed307cc13b3c5b20636f49f68d86510d4229016e7b236cb63efe69",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/llm-config.mjs",
+      "sha256": "81bea644cc6bb80e2a77679be2a961aaa7c5e014fe019223efb80bcf20df32c1",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/effects.js",
+      "sha256": "c881018475eee3d00d43680dd7e000f88290a232907f57fe42a61a518cfefa00",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/nature.webp",
+      "sha256": "744af33fdf0e950f04ce6affa52824ff5b1cff3d9853fc7d913f6c1dceb33dcd",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/sigil.svg",
+      "sha256": "696641a415f00205c8eaa56c0755264d6846b76360e820178234ee362736f71d",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/ecology.webp",
+      "sha256": "94e4de9c5535a05adfb6fd9a3dc43b043fc1343f8de5decaff69b5b627c9d003",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/scale.webp",
+      "sha256": "1964f133554a3cb2b7f102ffac8283acc6735fe37c64d2fd28ebe21ff2b5bb12",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/absence.webp",
+      "sha256": "9f3de26004995944112c0f01e430133f042f4e1f792bc992fa5985668b899136",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/rules.webp",
+      "sha256": "440809bd23103f937425cea53b54c77e6517514c2f3098a601a110e2a3ce172d",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/gap.webp",
+      "sha256": "7417699ba11d2727ebbbbc59502c9423911a80e4fc7fe89f8dd3584d499ddb56",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/mountains.svg",
+      "sha256": "24340d5a080ae02e4e10a3d663e472c6c0aba2f5c89a9ce64e4a816918550530",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/subject.webp",
+      "sha256": "b9e6f0dfb58861b6ea9064c1a146b4a1fc3d0345a0a028a0574af4b3328ea632",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/niche.webp",
+      "sha256": "5634f8b304f7aa5f0dadcdb011f206126d5761e1142a4e656f78af17596b8bcc",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/migration.webp",
+      "sha256": "b9a6017bf3c688a80cad75b1bc982b810eeb4230d0ed08fc82632141a9f00711",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/endgame.webp",
+      "sha256": "c73fdf596705733e3d96adee43a04dcd59d4676676c14c5b944bb2f5f3276384",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/card-back.svg",
+      "sha256": "72b4ed0014132434ea08ae0041addaba806fbc6a117ac21070a86a01d04fc0cc",
+      "unchangedFrom": "0.3.0"
+    },
+    {
+      "path": "lab/public/assets/transaction.webp",
+      "sha256": "fd3212e78288ce35df64c5ac7551a45295a909f789b8c159a7552309d293d79c",
+      "unchangedFrom": "0.3.0"
+    }
+  ]
+}

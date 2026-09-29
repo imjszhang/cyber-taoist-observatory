@@ -1,11 +1,14 @@
-# 观天局 v0.3.0
+# Lab v0.4.0
 
-在项目根目录运行 `npm run lab:start`，打开 `http://127.0.0.1:4174/lab`。
+应用入口：`node lab/server.mjs`，通常从项目根目录运行 `npm run lab:start`。
 
-本机服务器与 Agent CLI 操作同一份 run。v0.3.0 主要更新前端分层结构，模型、证据校验与数据格式沿用 v0.2.1。
+- `server.mjs`: 本机 HTTP / 状态 / 原内置 LLM / SSE。
+- `engine.mjs`, `evidence.mjs`, `llm-config.mjs`: 原游戏对象、逐段引文核验和模型配置。
+- `agent-contract.mjs`: Agent API schema 和任务说明。
+- `agent-service.mjs`: 会话、配对、权限、租约、冻结上下文、幂等和提交核验；无模型调用。
+- `agent-client.mjs`: 本机限定的认证 HTTP 客户端、私有凭证文件。
+- `mcp.mjs`: 依赖为零的 stdio MCP 桥接；宿主 AI 必须主动调用。
+- `agent-cli.mjs`: 对应的 CLI；由 `cli.mjs agent ...` 调用。
+- `public/`: 分层网页 / 卡牌 / 动画 / 新连接页。
 
-- [完整说明](../README.md)
-- [保留旧数据升级](../docs/UPGRADE-v0.3.0.md)
-- [Agent CLI](../AGENTS.md)
-- [UI 结构](../docs/UI-ARCHITECTURE.md)
-- [测试报告](../docs/TEST-REPORT.md)
+完整步骤见根目录 [README](../README.md)、[Agent 接入](../docs/AGENT-CONNECTION.md)、[API](../docs/AGENT-API.md) 和 [AGENTS.md](../AGENTS.md)。

@@ -1,0 +1,728 @@
+
+> cyber-taoist-observatory@0.4.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: external connect pins real theory and rejects reusing a one-time code
+ok 1 - external connect pins real theory and rejects reusing a one-time code
+  ---
+  duration_ms: 161.972156
+  type: 'test'
+  ...
+# Subtest: pair and bearer secrets do not appear in run export or session list
+ok 2 - pair and bearer secrets do not appear in run export or session list
+  ---
+  duration_ms: 51.871033
+  type: 'test'
+  ...
+# Subtest: scoped API requires token and rejects token use on owner endpoints
+ok 3 - scoped API requires token and rejects token use on owner endpoints
+  ---
+  duration_ms: 29.059046
+  type: 'test'
+  ...
+# Subtest: Guided agents cannot create their own mapping or insight tasks
+ok 4 - Guided agents cannot create their own mapping or insight tasks
+  ---
+  duration_ms: 54.29054
+  type: 'test'
+  ...
+# Subtest: external driver blocks legacy live AND baseline endpoints without fallback
+ok 5 - external driver blocks legacy live AND baseline endpoints without fallback
+  ---
+  duration_ms: 82.692227
+  type: 'test'
+  ...
+# Subtest: human queue is deduplicated and claiming returns full context plus a lease
+ok 6 - human queue is deduplicated and claiming returns full context plus a lease
+  ---
+  duration_ms: 48.300153
+  type: 'test'
+  ...
+# Subtest: six cards and an insight submitted by external AI share persisted server state
+ok 7 - six cards and an insight submitted by external AI share persisted server state
+  ---
+  duration_ms: 81.899596
+  type: 'test'
+  ...
+# Subtest: invalid evidence is audited, preserves empty map and can be corrected
+ok 8 - invalid evidence is audited, preserves empty map and can be corrected
+  ---
+  duration_ms: 57.61944
+  type: 'test'
+  ...
+# Subtest: partial/malformed six-card shapes remain auditable rather than being auto-completed
+ok 9 - partial/malformed six-card shapes remain auditable rather than being auto-completed
+  ---
+  duration_ms: 72.740011
+  type: 'test'
+  ...
+# Subtest: N cannot be OBSERVED; submitted extra fields cannot spoof agent metadata
+ok 10 - N cannot be OBSERVED; submitted extra fields cannot spoof agent metadata
+  ---
+  duration_ms: 32.921633
+  type: 'test'
+  ...
+# Subtest: same idempotency key/payload returns accepted result without duplicate event
+ok 11 - same idempotency key/payload returns accepted result without duplicate event
+  ---
+  duration_ms: 53.132475
+  type: 'test'
+  ...
+# Subtest: idempotency keys cannot be reused for modified output
+ok 12 - idempotency keys cannot be reused for modified output
+  ---
+  duration_ms: 33.193168
+  type: 'test'
+  ...
+# Subtest: three rejected attempts stop the job; there is no automatic paid retry
+ok 13 - three rejected attempts stop the job; there is no automatic paid retry
+  ---
+  duration_ms: 56.680146
+  type: 'test'
+  ...
+# Subtest: forged claim and context hash are rejected before writes
+ok 14 - forged claim and context hash are rejected before writes
+  ---
+  duration_ms: 41.297095
+  type: 'test'
+  ...
+# Subtest: cancelled work rejects late valid submissions
+ok 15 - cancelled work rejects late valid submissions
+  ---
+  duration_ms: 38.62933
+  type: 'test'
+  ...
+# Subtest: revocation invalidates credentials immediately and preserves pending-task cancellation
+ok 16 - revocation invalidates credentials immediately and preserves pending-task cancellation
+  ---
+  duration_ms: 36.989448
+  type: 'test'
+  ...
+# Subtest: switching local is explicit and cancels pending external work
+ok 17 - switching local is explicit and cancels pending external work
+  ---
+  duration_ms: 29.763426
+  type: 'test'
+  ...
+# Subtest: only one active writer connection controls a run, while read-only observer may coexist
+ok 18 - only one active writer connection controls a run, while read-only observer may coexist
+  ---
+  duration_ms: 24.35722
+  type: 'test'
+  ...
+# Subtest: Analyst cannot ingest, branch, or submit human feedback through MCP tools
+ok 19 - Analyst cannot ingest, branch, or submit human feedback through MCP tools
+  ---
+  duration_ms: 19.630154
+  type: 'test'
+  ...
+# Subtest: Autopilot can request bounded jobs but cannot exceed human-issued quota
+ok 20 - Autopilot can request bounded jobs but cannot exceed human-issued quota
+  ---
+  duration_ms: 25.538772
+  type: 'test'
+  ...
+# Subtest: Operator can ingest; branch copies exact frozen context, not conclusions or authorization
+ok 21 - Operator can ingest; branch copies exact frozen context, not conclusions or authorization
+  ---
+  duration_ms: 51.98915
+  type: 'test'
+  ...
+# Subtest: agent-added evidence has external provenance, never human provenance
+ok 22 - agent-added evidence has external provenance, never human provenance
+  ---
+  duration_ms: 54.88739
+  type: 'test'
+  ...
+# Subtest: bounded next-task long poll wakes only when a human queues work
+ok 23 - bounded next-task long poll wakes only when a human queues work
+  ---
+  duration_ms: 229.107514
+  type: 'test'
+  ...
+# Subtest: bounded idle poll returns idle and creates no analytical results
+ok 24 - bounded idle poll returns idle and creates no analytical results
+  ---
+  duration_ms: 45.645417
+  type: 'test'
+  ...
+# Subtest: two concurrent claims cannot lease the same task twice
+ok 25 - two concurrent claims cannot lease the same task twice
+  ---
+  duration_ms: 26.066015
+  type: 'test'
+  ...
+# Subtest: release allows a new claim and invalidates the old lease token
+ok 26 - release allows a new claim and invalidates the old lease token
+  ---
+  duration_ms: 53.371397
+  type: 'test'
+  ...
+# Subtest: expired lease rejects stale completion and permits reclamation
+ok 27 - expired lease rejects stale completion and permits reclamation
+  ---
+  duration_ms: 88.004722
+  type: 'test'
+  ...
+# Subtest: renewing an active task extends its lease
+ok 28 - renewing an active task extends its lease
+  ---
+  duration_ms: 30.424501
+  type: 'test'
+  ...
+# Subtest: events expose durable cursors and never claim that bridge heartbeat is model reasoning
+ok 29 - events expose durable cursors and never claim that bridge heartbeat is model reasoning
+  ---
+  duration_ms: 19.034169
+  type: 'test'
+  ...
+# Subtest: reads preserve run bytes, and revoked/expired sessions do not silently reactivate
+ok 30 - reads preserve run bytes, and revoked/expired sessions do not silently reactivate
+  ---
+  duration_ms: 27.26291
+  type: 'test'
+  ...
+# Subtest: URL client refuses remote, credential-bearing, path and redirect-like bases
+ok 31 - URL client refuses remote, credential-bearing, path and redirect-like bases
+  ---
+  duration_ms: 0.853525
+  type: 'test'
+  ...
+# Subtest: connection files are private and cached pairing resumes without reusing the code
+ok 32 - connection files are private and cached pairing resumes without reusing the code
+  ---
+  duration_ms: 19.093474
+  type: 'test'
+  ...
+# Subtest: CLI pairing, context, claim and own-result submission complete a real round trip
+ok 33 - CLI pairing, context, claim and own-result submission complete a real round trip
+  ---
+  duration_ms: 2333.026623
+  type: 'test'
+  ...
+# Subtest: session lifetime is enforced on the next authenticated request
+ok 34 - session lifetime is enforced on the next authenticated request
+  ---
+  duration_ms: 36.139704
+  type: 'test'
+  ...
+# Subtest: unused pairing codes expire and repeated bad attempts are rate limited
+ok 35 - unused pairing codes expire and repeated bad attempts are rate limited
+  ---
+  duration_ms: 63.899341
+  type: 'test'
+  ...
+# Subtest: changing an actual frozen source or protocol rejects stale results even if a stored hash is unchanged
+ok 36 - changing an actual frozen source or protocol rejects stale results even if a stored hash is unchanged
+  ---
+  duration_ms: 35.237914
+  type: 'test'
+  ...
+# Subtest: an actual observation from a different run is never readable through a scoped connection
+ok 37 - an actual observation from a different run is never readable through a scoped connection
+  ---
+  duration_ms: 25.896813
+  type: 'test'
+  ...
+# Subtest: server restart preserves paired credentials and an unexpired claimed task, not unused pairing codes
+ok 38 - server restart preserves paired credentials and an unexpired claimed task, not unused pairing codes
+  ---
+  duration_ms: 69.512669
+  type: 'test'
+  ...
+# Subtest: incident: first reported R evidence passes as two real quotes
+ok 39 - incident: first reported R evidence passes as two real quotes
+  ---
+  duration_ms: 4.490061
+  type: 'test'
+  ...
+# Subtest: incident: second S evidence supports fullwidth separator and only removable wrapper quotes
+ok 40 - incident: second S evidence supports fullwidth separator and only removable wrapper quotes
+  ---
+  duration_ms: 0.743548
+  type: 'test'
+  ...
+# Subtest: incident: second R evidence retains source quotation marks inside the first quote
+ok 41 - incident: second R evidence retains source quotation marks inside the first quote
+  ---
+  duration_ms: 0.337546
+  type: 'test'
+  ...
+# Subtest: incident: six cards validate and UNKNOWN explanations are not labeled as source quotes
+ok 42 - incident: six cards validate and UNKNOWN explanations are not labeled as source quotes
+  ---
+  duration_ms: 3.568149
+  type: 'test'
+  ...
+# Subtest: direct exact excerpt is preserved, even with semicolons and line breaks
+ok 43 - direct exact excerpt is preserved, even with semicolons and line breaks
+  ---
+  duration_ms: 0.233758
+  type: 'test'
+  ...
+# Subtest: composite evidence with an internal literal semicolon is not over-split
+ok 44 - composite evidence with an internal literal semicolon is not over-split
+  ---
+  duration_ms: 0.387895
+  type: 'test'
+  ...
+# Subtest: new evidence arrays map to exact UTF-16 offsets without combining fragments
+ok 45 - new evidence arrays map to exact UTF-16 offsets without combining fragments
+  ---
+  duration_ms: 0.640573
+  type: 'test'
+  ...
+# Subtest: multiple quote styles can be removed only around an exact source excerpt
+ok 46 - multiple quote styles can be removed only around an exact source excerpt
+  ---
+  duration_ms: 0.371477
+  type: 'test'
+  ...
+# Subtest: original quotation marks are preserved when the entire quoted text exists
+ok 47 - original quotation marks are preserved when the entire quoted text exists
+  ---
+  duration_ms: 0.586606
+  type: 'test'
+  ...
+# Subtest: CRLF, newlines and harmless edge whitespace are supported
+ok 48 - CRLF, newlines and harmless edge whitespace are supported
+  ---
+  duration_ms: 0.677761
+  type: 'test'
+  ...
+# Subtest: matching is case-sensitive and does not rewrite words or punctuation
+ok 49 - matching is case-sensitive and does not rewrite words or punctuation
+  ---
+  duration_ms: 1.048725
+  type: 'test'
+  ...
+# Subtest: one invented fragment rejects the entire claimed observed quote
+ok 50 - one invented fragment rejects the entire claimed observed quote
+  ---
+  duration_ms: 0.219814
+  type: 'test'
+  ...
+# Subtest: ellipsis joins are rejected rather than treated as source text
+ok 51 - ellipsis joins are rejected rather than treated as source text
+  ---
+  duration_ms: 0.237724
+  type: 'test'
+  ...
+# Subtest: quotation stripping cannot erase mismatched inner quotation marks
+ok 52 - quotation stripping cannot erase mismatched inner quotation marks
+  ---
+  duration_ms: 0.137862
+  type: 'test'
+  ...
+# Subtest: arrays reject empty pieces, nested objects and independently invented segments
+ok 53 - arrays reject empty pieces, nested objects and independently invented segments
+  ---
+  duration_ms: 0.350427
+  type: 'test'
+  ...
+# Subtest: empty evidence is allowed for uncertainty, never for OBSERVED
+ok 54 - empty evidence is allowed for uncertainty, never for OBSERVED
+  ---
+  duration_ms: 0.246893
+  type: 'test'
+  ...
+# Subtest: punctuation flood has a bounded validation cost
+ok 55 - punctuation flood has a bounded validation cost
+  ---
+  duration_ms: 0.227118
+  type: 'test'
+  ...
+# Subtest: all quote arrays have a strict size limit
+ok 56 - all quote arrays have a strict size limit
+  ---
+  duration_ms: 0.123499
+  type: 'test'
+  ...
+# Subtest: claiming Nature as directly OBSERVED remains forbidden
+ok 57 - claiming Nature as directly OBSERVED remains forbidden
+  ---
+  duration_ms: 0.575809
+  type: 'test'
+  ...
+# Subtest: insight evidence uses the same validator; forged fragments do not become hypotheses
+ok 58 - insight evidence uses the same validator; forged fragments do not become hypotheses
+  ---
+  duration_ms: 0.320131
+  type: 'test'
+  ...
+# Subtest: capabilities, real artwork MIME and static UI are served
+ok 59 - capabilities, real artwork MIME and static UI are served
+  ---
+  duration_ms: 280.598395
+  type: 'test'
+  ...
+# Subtest: GET never creates or advances an experiment
+ok 60 - GET never creates or advances an experiment
+  ---
+  duration_ms: 110.978499
+  type: 'test'
+  ...
+# Subtest: raw input is preserved byte-for-byte and generic baseline remains UNKNOWN
+ok 61 - raw input is preserved byte-for-byte and generic baseline remains UNKNOWN
+  ---
+  duration_ms: 47.770082
+  type: 'test'
+  ...
+# Subtest: demo: six mappings, five distinct hypotheses and stable idempotent reuse
+ok 62 - demo: six mappings, five distinct hypotheses and stable idempotent reuse
+  ---
+  duration_ms: 47.319872
+  type: 'test'
+  ...
+# Subtest: operator errors and empty observations never create phantom results
+ok 63 - operator errors and empty observations never create phantom results
+  ---
+  duration_ms: 35.759878
+  type: 'test'
+  ...
+# Subtest: human ratings are append-only, validated and separate from evidence
+ok 64 - human ratings are append-only, validated and separate from evidence
+  ---
+  duration_ms: 56.581121
+  type: 'test'
+  ...
+# Subtest: support and challenge evidence retains the original hypothesis and all feedback
+ok 65 - support and challenge evidence retains the original hypothesis and all feedback
+  ---
+  duration_ms: 30.938097
+  type: 'test'
+  ...
+# Subtest: branch copies observations, clears conclusions and snapshots real protocol text
+ok 66 - branch copies observations, clears conclusions and snapshots real protocol text
+  ---
+  duration_ms: 30.233296
+  type: 'test'
+  ...
+# Subtest: unknown protocol versions cannot be cosmetic labels
+ok 67 - unknown protocol versions cannot be cosmetic labels
+  ---
+  duration_ms: 11.48014
+  type: 'test'
+  ...
+# Subtest: serialized concurrent writes do not lose observations
+ok 68 - serialized concurrent writes do not lose observations
+  ---
+  duration_ms: 57.466181
+  type: 'test'
+  ...
+# Subtest: LLM disabled means explicit failure, not baseline fallback
+ok 69 - LLM disabled means explicit failure, not baseline fallback
+  ---
+  duration_ms: 13.185628
+  type: 'test'
+  ...
+# Subtest: real adapter contract: context injection, source quotes, trace, no secret leakage
+ok 70 - real adapter contract: context injection, source quotes, trace, no secret leakage
+  ---
+  duration_ms: 30.74546
+  type: 'test'
+  ...
+# Subtest: concurrent live map requests share existing results rather than double-calling
+ok 71 - concurrent live map requests share existing results rather than double-calling
+  ---
+  duration_ms: 55.407935
+  type: 'test'
+  ...
+# Subtest: malformed LLM JSON leaves an auditable failure without invented output
+ok 72 - malformed LLM JSON leaves an auditable failure without invented output
+  ---
+  duration_ms: 30.076318
+  type: 'test'
+  ...
+# Subtest: unsupported OBSERVED quotes are rejected instead of appearing as facts
+ok 73 - unsupported OBSERVED quotes are rejected instead of appearing as facts
+  ---
+  duration_ms: 22.868716
+  type: 'test'
+  ...
+# Subtest: SSE broadcasts the same run revision that REST returns
+ok 74 - SSE broadcasts the same run revision that REST returns
+  ---
+  duration_ms: 15.066323
+  type: 'test'
+  ...
+# Subtest: cross-origin mutations, unsafe hosts and unsupported content-types are rejected
+ok 75 - cross-origin mutations, unsafe hosts and unsupported content-types are rejected
+  ---
+  duration_ms: 21.022993
+  type: 'test'
+  ...
+# Subtest: older v0.1 runs load without rewriting original observations or history
+ok 76 - older v0.1 runs load without rewriting original observations or history
+  ---
+  duration_ms: 8.925182
+  type: 'test'
+  ...
+# Subtest: CLI is a real JSON client with nonzero errors and file export
+ok 77 - CLI is a real JSON client with nonzero errors and file export
+  ---
+  duration_ms: 1735.361255
+  type: 'test'
+  ...
+# Subtest: JSON parser accepts fenced JSON but not prose with a hidden object
+ok 78 - JSON parser accepts fenced JSON but not prose with a hidden object
+  ---
+  duration_ms: 2.381443
+  type: 'test'
+  ...
+# Subtest: MCP stdio negotiates lifecycle and exposes tools, resources and prompt without stdout logging
+ok 79 - MCP stdio negotiates lifecycle and exposes tools, resources and prompt without stdout logging
+  ---
+  duration_ms: 777.24269
+  type: 'test'
+  ...
+# Subtest: MCP version fallback, double initialize and unknown methods are explicit protocol responses
+ok 80 - MCP version fallback, double initialize and unknown methods are explicit protocol responses
+  ---
+  duration_ms: 430.564378
+  type: 'test'
+  ...
+# Subtest: MCP raw source and exact frozen Constitution/Protocol are delivered through real resources
+ok 81 - MCP raw source and exact frozen Constitution/Protocol are delivered through real resources
+  ---
+  duration_ms: 531.013144
+  type: 'test'
+  ...
+# Subtest: MCP own-AI result roundtrip maps six cards and adds an insight/hypothesis without a model call
+ok 82 - MCP own-AI result roundtrip maps six cards and adds an insight/hypothesis without a model call
+  ---
+  duration_ms: 674.176684
+  type: 'test'
+  ...
+# Subtest: MCP result validation is a tool error with repair feedback and records both attempts
+ok 83 - MCP result validation is a tool error with repair feedback and records both attempts
+  ---
+  duration_ms: 588.945511
+  type: 'test'
+  ...
+# Subtest: MCP rejects malformed params, argument types and unknown tools rather than guessing
+ok 84 - MCP rejects malformed params, argument types and unknown tools rather than guessing
+  ---
+  duration_ms: 477.955209
+  type: 'test'
+  ...
+# Subtest: MCP cancellation stops a bounded pending wait and the bridge remains responsive
+ok 85 - MCP cancellation stops a bounded pending wait and the bridge remains responsive
+  ---
+  duration_ms: 560.636498
+  type: 'test'
+  ...
+# Subtest: MCP can reconnect using saved credentials after a host restarts, without pairing again
+ok 86 - MCP can reconnect using saved credentials after a host restarts, without pairing again
+  ---
+  duration_ms: 884.265738
+  type: 'test'
+  ...
+# Subtest: MCP revoked sessions return a clear tool error and do not fall back to built-in LLM
+ok 87 - MCP revoked sessions return a clear tool error and do not fall back to built-in LLM
+  ---
+  duration_ms: 419.964139
+  type: 'test'
+  ...
+# Subtest: MCP closes on stdin EOF without leaving a persistent AI worker
+ok 88 - MCP closes on stdin EOF without leaving a persistent AI worker
+  ---
+  duration_ms: 492.098774
+  type: 'test'
+  ...
+# Subtest: native HTTP SSE broadcasts external submission changes without rerunning analysis
+ok 89 - native HTTP SSE broadcasts external submission changes without rerunning analysis
+  ---
+  duration_ms: 435.896695
+  type: 'test'
+  ...
+# Subtest: configuration: no forced reasoning or token settings by default
+ok 90 - configuration: no forced reasoning or token settings by default
+  ---
+  duration_ms: 3.178405
+  type: 'test'
+  ...
+# Subtest: configuration: >120s survives without silent clamping and per-stage overrides are distinct
+ok 91 - configuration: >120s survives without silent clamping and per-stage overrides are distinct
+  ---
+  duration_ms: 0.47688
+  type: 'test'
+  ...
+# Subtest: configuration: invalid values are rejected, never silently discarded
+ok 92 - configuration: invalid values are rejected, never silently discarded
+  ---
+  duration_ms: 1.114952
+  type: 'test'
+  ...
+# Subtest: configuration: default stage effort suppresses inherited effort deliberately
+ok 93 - configuration: default stage effort suppresses inherited effort deliberately
+  ---
+  duration_ms: 0.387979
+  type: 'test'
+  ...
+# Subtest: live mapping: reported semicolon evidence is accepted, quotes resolved and usage audited
+ok 94 - live mapping: reported semicolon evidence is accepted, quotes resolved and usage audited
+  ---
+  duration_ms: 129.635783
+  type: 'test'
+  ...
+# Subtest: new insight citations checked while mapping and successful prior cards survive later failure
+ok 95 - new insight citations checked while mapping and successful prior cards survive later failure
+  ---
+  duration_ms: 61.470641
+  type: 'test'
+  ...
+# Subtest: preflight failure for insight never invalidates the successful mapping trace in the same operation
+ok 96 - preflight failure for insight never invalidates the successful mapping trace in the same operation
+  ---
+  duration_ms: 42.003445
+  type: 'test'
+  ...
+# Subtest: recovery: old invalid trace restored without LLM, original trace unchanged, retries idempotent
+ok 97 - recovery: old invalid trace restored without LLM, original trace unchanged, retries idempotent
+  ---
+  duration_ms: 13.518581
+  type: 'test'
+  ...
+# Subtest: recovery: made-up evidence still rejected and historical invalid trace not rewritten
+ok 98 - recovery: made-up evidence still rejected and historical invalid trace not rewritten
+  ---
+  duration_ms: 23.360878
+  type: 'test'
+  ...
+# Subtest: recovery: source binding prevents attaching a valid answer to a different observation
+ok 99 - recovery: source binding prevents attaching a valid answer to a different observation
+  ---
+  duration_ms: 19.817742
+  type: 'test'
+  ...
+# Subtest: recovery: identical legacy observations need explicit disambiguation
+ok 100 - recovery: identical legacy observations need explicit disambiguation
+  ---
+  duration_ms: 14.574146
+  type: 'test'
+  ...
+# Subtest: recovery: existing mapping cannot be overwritten without explicit force
+ok 101 - recovery: existing mapping cannot be overwritten without explicit force
+  ---
+  duration_ms: 14.985143
+  type: 'test'
+  ...
+# Subtest: recovery: CLI executes local revalidation and exposes structured failures
+ok 102 - recovery: CLI executes local revalidation and exposes structured failures
+  ---
+  duration_ms: 673.893776
+  type: 'test'
+  ...
+# Subtest: recovery: stored insight can be validated without another call
+ok 103 - recovery: stored insight can be validated without another call
+  ---
+  duration_ms: 21.984493
+  type: 'test'
+  ...
+# Subtest: output token exhaustion is explicit even when returned JSON happens to parse
+ok 104 - output token exhaustion is explicit even when returned JSON happens to parse
+  ---
+  duration_ms: 44.290954
+  type: 'test'
+  ...
+# Subtest: reasoning-only or empty final content cannot masquerade as a usable answer
+ok 105 - reasoning-only or empty final content cannot masquerade as a usable answer
+  ---
+  duration_ms: 28.172054
+  type: 'test'
+  ...
+# Subtest: HTTP failure does not retry or discard configured reasoning parameters
+ok 106 - HTTP failure does not retry or discard configured reasoning parameters
+  ---
+  duration_ms: 40.351746
+  type: 'test'
+  ...
+# Subtest: actual deadline abort leaves a timeout receipt with no invented result and no retry
+ok 107 - actual deadline abort leaves a timeout receipt with no invented result and no retry
+  ---
+  duration_ms: 1020.105788
+  type: 'test'
+  ...
+# Subtest: GET and refresh of an old failed run never recover it or modify disk
+ok 108 - GET and refresh of an old failed run never recover it or modify disk
+  ---
+  duration_ms: 8.844308
+  type: 'test'
+  ...
+# Subtest: UI: empty URL opens home; legacy run URL still opens the table
+ok 109 - UI: empty URL opens home; legacy run URL still opens the table
+  ---
+  duration_ms: 5.268041
+  type: 'test'
+  ...
+# Subtest: UI: route input is allowlisted and arbitrary stages are rejected
+ok 110 - UI: route input is allowlisted and arbitrary stages are rejected
+  ---
+  duration_ms: 0.48144
+  type: 'test'
+  ...
+# Subtest: UI: read-only deep link retains run, observation, stage and selected lens
+ok 111 - UI: read-only deep link retains run, observation, stage and selected lens
+  ---
+  duration_ms: 0.587125
+  type: 'test'
+  ...
+# Subtest: UI: note deep link contains identity but never a model call command
+ok 112 - UI: note deep link contains identity but never a model call command
+  ---
+  duration_ms: 0.417771
+  type: 'test'
+  ...
+# Subtest: UI: stage gates allow inspection but do not fabricate uncreated results
+ok 113 - UI: stage gates allow inspection but do not fabricate uncreated results
+  ---
+  duration_ms: 0.301846
+  type: 'test'
+  ...
+# Subtest: UI: corrupt stage requests fall back to the last available stage
+ok 114 - UI: corrupt stage requests fall back to the last available stage
+  ---
+  duration_ms: 0.257793
+  type: 'test'
+  ...
+# Subtest: UI: journal filter uses the latest human rating without changing data
+ok 115 - UI: journal filter uses the latest human rating without changing data
+  ---
+  duration_ms: 1.857195
+  type: 'test'
+  ...
+# Subtest: UI: unrated notes are separate from known or challenged notes
+ok 116 - UI: unrated notes are separate from known or challenged notes
+  ---
+  duration_ms: 0.3939
+  type: 'test'
+  ...
+# Subtest: UI: note search covers the source title, alternative and text
+ok 117 - UI: note search covers the source title, alternative and text
+  ---
+  duration_ms: 1.059119
+  type: 'test'
+  ...
+# Subtest: UI: per-observation results never mix another source into the table
+ok 118 - UI: per-observation results never mix another source into the table
+  ---
+  duration_ms: 0.796131
+  type: 'test'
+  ...
+# Subtest: UI: searching and filtering do not mutate original order or feedback
+ok 119 - UI: searching and filtering do not mutate original order or feedback
+  ---
+  duration_ms: 0.450128
+  type: 'test'
+  ...
+1..119
+# tests 119
+# suites 0
+# pass 119
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6982.64252

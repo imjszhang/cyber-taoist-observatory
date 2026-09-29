@@ -5,11 +5,12 @@ const args=process.argv.slice(2),command=args.shift(),base=(process.env.TAO_LAB_
 const flag=name=>{const i=args.indexOf(name);if(i<0)return undefined;const v=args[i+1];if(v===undefined||v.startsWith('--'))throw Error(`${name} requires a value`);return v;};
 const has=name=>args.includes(name);
 const positional=n=>{const v=args[n];if(!v||v.startsWith('--'))throw Error('missing run / observation / target ID');return encodeURIComponent(v);};
-const help=`观天局 / Tao Lab v0.3.0
+const help=`观天局 / Tao Lab v0.4.0
 
 Start server: npm run lab:start
 All commands below print JSON. Errors print JSON to stderr with a nonzero exit code.
 
+  node lab/cli.mjs agent help         # Use your own agent AI (MCP/CLI)
   node lab/cli.mjs capabilities
   node lab/cli.mjs list
   node lab/cli.mjs demo
@@ -41,6 +42,7 @@ async function request(path,{method='GET',body}={}){
 }
 async function main(){
   if(!command||['help','--help','-h'].includes(command)){console.log(help);return;}
+  if(command==='agent'){const {runAgentCli}=await import('./agent-cli.mjs');return runAgentCli(args);}
   let out;const post=(p,b={})=>request(p,{method:'POST',body:b});
   if(command==='capabilities')out=await request('/api/capabilities');
   else if(command==='list')out=await request('/api/runs');

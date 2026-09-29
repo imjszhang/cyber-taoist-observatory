@@ -1,5 +1,5 @@
 /** Pure presentation routing. This module never fetches or changes experiment data. */
-export const VIEWS = ['home','table','reading','journal','library','history','settings'];
+export const VIEWS = ['home','table','reading','journal','library','history','settings','agents'];
 export const STAGES = ['source','map','lenses','results'];
 export function routeFromSearch(search) {
   const p = new URLSearchParams(search);

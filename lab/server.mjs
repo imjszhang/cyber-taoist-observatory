@@ -8,6 +8,7 @@ import {VERSION,OPERATORS,CONCEPTS,createRun,addObservation,event,uid,now,baseli
 
 import {modelOptions,ADAPTER_VERSION} from './llm-config.mjs';
 import {EVIDENCE_VERSION} from './evidence.mjs';
+import {createAgentService} from './agent-service.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.dirname(here), pub=path.join(here,'public');
@@ -15,7 +16,7 @@ const json=(res,code,data)=>{res.writeHead(code,{'content-type':'application/jso
 const error=(message,status=400)=>Object.assign(new Error(message),{status});
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
 
-export function createLabServer({home=process.env.TAO_LAB_HOME||path.join(root,'.tao-lab'),env=process.env}={}) {
+export function createLabServer({home=process.env.TAO_LAB_HOME||path.join(root,'.tao-lab'),env=process.env,agentOptions={}}={}) {
   home=path.resolve(home);const runsDir=path.join(home,'runs');fs.mkdirSync(runsDir,{recursive:true});
   const subscribers=new Set(),locks=new Map(),working=new Map();
   const enabled=env.TAO_LLM_ENABLED==='1';
@@ -199,14 +200,34 @@ ${citationContract}`;
   // Recover interrupted writes without retrying model calls or fabricating success.
   for(const r of list())if(r.status==='working'){r.status='ready';for(const t of r.traces)if(t.status==='running'){t.status='interrupted';t.error='服务中断，请手动重试';}event(r,'operation.interrupted');save(r);}
 
+  const agent=createAgentService({home,load,save,mutate,publish,snapshot,obs,writeMap,writeInsight,working,root,...agentOptions});
+  const agentToken=req=>{const a=req.headers.authorization||'';return a.startsWith('Bearer ')?a.slice(7):'';};
   async function api(req,res,u){
     const p=u.pathname;
+    // Agent credentials are never accepted on the trusted-local operator API.
+    // This is an API scope boundary, not an OS sandbox against a local shell user.
+    if(req.headers.authorization && !['/api/agent/status','/api/agent/heartbeat'].includes(p) && !p.startsWith('/api/agent/tools/'))throw error('Agent 凭证只能用于带权限校验的 /api/agent 工具接口',403);
+    if(req.method==='GET'&&p==='/api/agent/setup')return json(res,200,{...agent.setup(),localUrl:'http://'+req.headers.host});
+    if(req.method==='GET'&&p==='/api/agent/sessions')return json(res,200,{sessions:agent.listSessions(u.searchParams.get('runId')||undefined)});
+    if(req.method==='POST'&&p==='/api/agent/sessions')return json(res,201,await agent.createSession(await body(req)));
+    if(req.method==='POST'&&p==='/api/agent/connect')return json(res,200,await agent.connect(await body(req),req.socket.remoteAddress));
+    if(req.method==='GET'&&p==='/api/agent/status')return json(res,200,agent.status(agentToken(req)));
+    if(req.method==='POST'&&p==='/api/agent/heartbeat')return json(res,200,agent.heartbeat(agentToken(req)));
+    const revokePath=p.match(/^\/api\/agent\/sessions\/([^/]+)\/revoke$/);
+    if(req.method==='POST'&&revokePath)return json(res,200,await agent.revoke(revokePath[1]));
+    const toolPath=p.match(/^\/api\/agent\/tools\/([a-z_]+)$/);
+    if(req.method==='POST'&&toolPath){
+      const b=await body(req),abort=new AbortController();
+      const disconnected=()=>{if(!res.writableEnded)abort.abort();};res.on('close',disconnected);
+      try{return json(res,200,await agent.tool(agentToken(req),toolPath[1],b,abort.signal));}finally{res.off('close',disconnected);}
+    }
+
     if(req.method==='GET'&&p==='/api/events'){
       res.writeHead(200,{'content-type':'text/event-stream','cache-control':'no-cache','connection':'keep-alive','x-accel-buffering':'no'});
       res.write('retry: 1500\ndata: {"type":"connected"}\n\n');subscribers.add(res);
       const timer=setInterval(()=>res.write(': heartbeat\n\n'),15000);req.on('close',()=>{clearInterval(timer);subscribers.delete(res);});return;
     }
-    if(req.method==='GET'&&p==='/api/capabilities')return json(res,200,{version:VERSION,protocol:'v0.1',llmEnabled:enabled,llmConfigured:enabled&&!!env.TAO_LLM_URL&&!!env.TAO_LLM_MODEL,model:enabled?env.TAO_LLM_MODEL||null:null,llmSettings:settingsSummary(),evidenceValidator:EVIDENCE_VERSION,traceRecovery:true,operators:Object.values(OPERATORS),concepts:CONCEPTS,events:true,baselineNotice:'演示与模板不是 LLM 分析。',protocols:fs.readdirSync(path.join(root,'content')).filter(f=>/^PROTOCOL-v[\w.-]+\.md$/.test(f)).map(f=>f.slice(9,-3))});
+    if(req.method==='GET'&&p==='/api/capabilities')return json(res,200,{version:VERSION,externalAgent:{available:true,apiVersion:'1',mcpTransport:'stdio',guided:true},protocol:'v0.1',llmEnabled:enabled,llmConfigured:enabled&&!!env.TAO_LLM_URL&&!!env.TAO_LLM_MODEL,model:enabled?env.TAO_LLM_MODEL||null:null,llmSettings:settingsSummary(),evidenceValidator:EVIDENCE_VERSION,traceRecovery:true,operators:Object.values(OPERATORS),concepts:CONCEPTS,events:true,baselineNotice:'演示与模板不是 LLM 分析。',protocols:fs.readdirSync(path.join(root,'content')).filter(f=>/^PROTOCOL-v[\w.-]+\.md$/.test(f)).map(f=>f.slice(9,-3))});
     if(req.method==='GET'&&p==='/api/runs')return json(res,200,{runs:list().map(r=>({id:r.id,title:r.title,mode:r.mode,protocol:r.protocol,version:r.version,updatedAt:r.updatedAt,observations:r.observations.map(o=>({id:o.id,title:o.title})),insightCount:r.insights.length}))});
     if(req.method==='POST'&&(p==='/api/runs'||p==='/api/demo')){
       const b=await body(req),r=createRun(p==='/api/demo'?{title:'第一局 · 速度之外',mode:'demo'}:b);r.promptSnapshot=snapshot(r.protocol);if(p==='/api/demo')addObservation(r,DEMO);save(r);publish('run.created',r);return json(res,201,{run:r,viewerUrl:`/lab?run=${r.id}`});
@@ -217,6 +238,10 @@ ${citationContract}`;
     if(req.method==='GET'&&tail==='export'){const r=load(id);res.setHeader('content-disposition',`attachment; filename="${r.id}.json"`);return json(res,200,r);}
     if(req.method!=='POST')throw error('接口不存在',404);
     const b=await body(req);
+    if(tail==='driver'){if(b.kind!=='local')throw error('通过连接面板授权 External Agent；此接口仅用于切回 local');return json(res,200,await agent.localDriver(id));}
+    if(tail==='agent-jobs')return json(res,201,await agent.requestFromHuman(id,b));
+    const cancelJob=tail.match(/^agent-jobs\/([^/]+)\/cancel$/);
+    if(cancelJob)return json(res,200,await agent.cancel(id,cancelJob[1]));
     if(tail==='observations')return json(res,201,await mutate(id,r=>({observation:addObservation(r,{content:b.content,title:b.title,source:b.source})})));
     if(tail==='feedback')return json(res,201,await mutate(id,r=>({feedback:recordFeedback(r,b)})));
     if(tail==='branch'){
@@ -226,14 +251,15 @@ ${citationContract}`;
     }
     const recovery=tail.match(/^traces\/([^/]+)\/recover$/);
     if(recovery){
+      if(load(id).driver?.kind==='external')throw Object.assign(error('外部 Agent 模式不恢复内置模型返回。先显式切回本机驱动。',409),{code:'EXTERNAL_DRIVER_ACTIVE'});
       if(b.force!==undefined&&typeof b.force!=='boolean')throw error('force 必须是布尔值');
-      return json(res,200,await mutate(id,r=>recover(r,recovery[1],b)));
+      return json(res,200,await mutate(id,r=>{if(r.driver?.kind==='external')throw Object.assign(error('外部驱动期间不恢复本机模型返回',409),{code:'EXTERNAL_DRIVER_ACTIVE'});return recover(r,recovery[1],b);}));
     }
     let z=tail.match(/^observations\/([^/]+)\/(map|insight)$/);
-    if(z){if(b.allowLive!==undefined&&typeof b.allowLive!=='boolean')throw error('allowLive 必须是布尔值');
+    if(z){if(load(id).driver?.kind==='external')throw Object.assign(error('本局由外部 Agent 驱动；请排队 Agent 任务，不调用内置模型或模板。',409),{code:'EXTERNAL_DRIVER_ACTIVE'});if(b.allowLive!==undefined&&typeof b.allowLive!=='boolean')throw error('allowLive 必须是布尔值');
       const operators=b.operatorId==='all'?Object.keys(OPERATORS):[b.operatorId];
       if(z[2]==='insight'&&operators.some(op=>!OPERATORS[op]))throw error('未知洞见牌');
-      const result=await mutate(id,r=>guarded(r,()=>z[2]==='map'?map(r,obs(r,z[1]),b.allowLive===true,b.force===true):insight(r,obs(r,z[1]),operators,b.allowLive===true,b.force===true)));
+      const result=await mutate(id,r=>{if(r.driver?.kind==='external')throw Object.assign(error('本局由外部 Agent 驱动',409),{code:'EXTERNAL_DRIVER_ACTIVE'});return guarded(r,()=>z[2]==='map'?map(r,obs(r,z[1]),b.allowLive===true,b.force===true):insight(r,obs(r,z[1]),operators,b.allowLive===true,b.force===true));});
       return json(res,200,result);
     }
     z=tail.match(/^hypotheses\/([^/]+)\/evidence$/);

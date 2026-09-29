@@ -9,7 +9,15 @@ __pycache__/
 .qa-patch/
 
 .qa-ui-v0.3/
+.qa-ui-agent/
+.qa-ui-v0.4/
+*.connection.json
+.tao-agent*/
+job.json
+context.json
+result.json
+.mcp.local.json
+
 .env.*
 !.env.example
-# Local experiment incident report
 /docs/六象展开失败问题报告.md

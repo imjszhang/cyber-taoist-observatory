@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import {validateEvidence} from './evidence.mjs';
 
-export const VERSION = '0.3.0';
+export const VERSION = '0.4.0';
 export const STATES = ['OBSERVED', 'INFERRED', 'HYPOTHESIS', 'UNKNOWN'];
 export const OPERATORS = {
   gap: {id:'gap', name:'裂隙', english:'THE RIFT', symbol:'R ↔ N', roman:'I', question:'旧规则，哪里开始失灵？', description:'找出旧规则与新后果之间的裂缝。'},

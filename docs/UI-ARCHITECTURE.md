@@ -1,3 +1,5 @@
+> 本文保留 v0.3 分层 UI 的设计说明。v0.4 的连接/任务/提交工作区见 AGENT-CONNECTION.md 与 AGENT-API.md。
+
 # v0.3.0 UI 结构与约束
 
 ## 一个页面，处理一种主要任务

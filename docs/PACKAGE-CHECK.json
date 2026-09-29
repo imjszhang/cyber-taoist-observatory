@@ -1,11 +1,19 @@
 {
-  "npm run lab:check": "pass",
-  "npm test": "pass",
-  "startup": "npm run lab:start",
-  "version": "0.3.0",
-  "manifest": "all hashes verified",
-  "staticResources": "HTML/CSS/JS/WebP served with native HTTP",
-  "CLI": "demo → 6 concepts → 5 insights → export",
-  "existingRunRead": "byte-for-byte unchanged",
-  "liveModel": "disabled"
+  "version": "0.4.0",
+  "date": "2026-09-29",
+  "manifest": "all independent extraction hashes matched",
+  "syntax": "pass",
+  "nodeTests": {
+    "pass": 119,
+    "fail": 0
+  },
+  "startup": "npm run lab:start from newly extracted ZIP",
+  "staticResources": "native HTTP HTML/CSS/JS/WebP + headers passed",
+  "externalCLI": "pair → context → claim → six-card submit → insight submit → hypothesis → export → revoke",
+  "viewerUrl": "points to same run on the real test port",
+  "labModelCalls": 0,
+  "resultSource": "deterministic fixture; no actual external AI",
+  "ordinaryGET": "run bytes unchanged",
+  "secrets": "no raw session/pair tokens in run export; no user data or credential files bundled",
+  "finalRepack": "only package verification record + manifest added after functional acceptance; implementation unchanged"
 }

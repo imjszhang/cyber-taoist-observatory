@@ -1,0 +1,11 @@
+{
+  "npm run lab:check": "pass",
+  "npm test": "pass",
+  "startup": "npm run lab:start",
+  "version": "0.3.0",
+  "manifest": "all hashes verified",
+  "staticResources": "HTML/CSS/JS/WebP served with native HTTP",
+  "CLI": "demo → 6 concepts → 5 insights → export",
+  "existingRunRead": "byte-for-byte unchanged",
+  "liveModel": "disabled"
+}
